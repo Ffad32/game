@@ -54,7 +54,7 @@ int test()
         return 4;
     }
     // map jpg
-    bgSurface = IMG_Load("start.jpg");
+    bgSurface = IMG_Load("pictures/start.jpg");
     // check if the image was loaded
     if (!bgSurface)
     {   
@@ -69,7 +69,7 @@ int test()
         printf("Unable to create texture: %s\n", SDL_GetError());
     }
     // player png
-    playerSurface = IMG_Load("Screenshot 2024-01-31 161013.png");
+    playerSurface = IMG_Load("pictures/Screenshot 2024-01-31 161013.png");
     // check if the image was loaded
     if (!playerSurface)
     {

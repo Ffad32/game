@@ -22,7 +22,7 @@ int map(void)
     int code = 0;   // Variable to store the return code
     char name[25];  // Array to store the data
     float size = 0; // Variable to store the data
-    FILE *f = fopen("tos.map", "r");
+    FILE *f = fopen("maps/tos.map", "r");
     if (f == NULL)
     {
         printf("Error: Could not open file\n");
