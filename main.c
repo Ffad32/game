@@ -3,31 +3,33 @@
 
 int main()
 {
-    //movement flags for the player
+    // movement flags for the player
     bool moving_up = false;
     bool moving_down = false;
     bool moving_left = false;
     bool moving_right = false;
-    //stop flag
+    // stop flag
     bool stop = false;
-    //window and map creation
+    // collision ints
+    int collsion1, collision2;
+    // window and map creation
     test();
     drawcube();
     map();
-    //main loop
+    // main loop
     SDL_Event e;
     bool quit = false;
     while (!quit)
     {
-        //event handling
+        // event handling
         while (SDL_PollEvent(&e))
         {
-            //quit event
+            // quit event
             if (e.type == SDL_QUIT)
             {
                 quit = true;
             }
-            //keyboard events
+            // keyboard events
             if (e.type == SDL_KEYDOWN)
             {
                 switch (e.key.keysym.scancode)
@@ -64,22 +66,26 @@ int main()
                     break;
                 }
             }
-            //quit event
+            // quit event
             if (e.type == SDL_MOUSEBUTTONDOWN)
             {
                 quit = true;
             }
         }
-        //collision sollution
-        int collsion1,collision2;
-        if(collsion1==2 || collision2==2)
+        if (collsion1 == 3 || collision2 == 3)
         {
-
+            // interaction with object/NPC                                   IMPLEMENT LATER
         }
+
+        if (collsion1 == 2 || collision2 == 2)
+        {
+            // changes the background and map to the next level              IMPLEMENT LATER
+        }
+        // collision sollution
         if (moving_up && moving_right)
-        {   
-            collsion1=check_collision_with_poin(cube, false, false, true, false);
-            collision2=check_collision_with_poin(cube, true, false, false, false);
+        {
+            collsion1 = check_collision_with_poin(cube, false, false, true, false);
+            collision2 = check_collision_with_poin(cube, true, false, false, false);
             if (collsion1 == 1 && collision2 == 1)
             {
                 cube.y -= 4;
@@ -87,9 +93,9 @@ int main()
             }
         }
         else if (moving_up && moving_left)
-        {   
-            collsion1=check_collision_with_poin(cube, false, true, false, false);
-            collision2=check_collision_with_poin(cube, false, false, true, false);
+        {
+            collsion1 = check_collision_with_poin(cube, false, true, false, false);
+            collision2 = check_collision_with_poin(cube, false, false, true, false);
             if (collsion1 == 1 && collision2 == 1)
             {
                 cube.y -= 4;
@@ -97,9 +103,9 @@ int main()
             }
         }
         else if (moving_down && moving_right)
-        {   
-            collsion1=check_collision_with_poin(cube, false, false, false, true);
-            collision2=check_collision_with_poin(cube, true, false, false, false);
+        {
+            collsion1 = check_collision_with_poin(cube, false, false, false, true);
+            collision2 = check_collision_with_poin(cube, true, false, false, false);
             if (collsion1 == 1 && collision2 == 1)
             {
                 cube.y += 4;
@@ -107,9 +113,9 @@ int main()
             }
         }
         else if (moving_down && moving_left)
-        {   
-            collsion1=check_collision_with_poin(cube, false, false, false, true);
-            collision2=check_collision_with_poin(cube, false, true, false, false);
+        {
+            collsion1 = check_collision_with_poin(cube, false, false, false, true);
+            collision2 = check_collision_with_poin(cube, false, true, false, false);
             if (collsion1 == 1 && collision2 == 1)
             {
                 cube.y += 4;
@@ -118,44 +124,48 @@ int main()
         }
         else if (moving_up)
         {
-            collsion1=check_collision_with_poin(cube, false, false, true, false);
-            if (collsion1 == 1){
-            cube.y -= 4;
+            collsion1 = check_collision_with_poin(cube, false, false, true, false);
+            if (collsion1 == 1)
+            {
+                cube.y -= 4;
             }
         }
         else if (moving_down)
         {
-            collsion1=check_collision_with_poin(cube, false, false, false, true);
-            if (collsion1 == 1){
-            cube.y += 4;
+            collsion1 = check_collision_with_poin(cube, false, false, false, true);
+            if (collsion1 == 1)
+            {
+                cube.y += 4;
             }
         }
         else if (moving_left)
         {
-            collsion1=check_collision_with_poin(cube, false, true, false, false);
-            if (collsion1 == 1){
-            cube.x -= 4;
+            collsion1 = check_collision_with_poin(cube, false, true, false, false);
+            if (collsion1 == 1)
+            {
+                cube.x -= 4;
             }
         }
         else if (moving_right)
         {
-            collsion1=check_collision_with_poin(cube, true, false, false, false);
-            if (collsion1 == 1){
+            collsion1 = check_collision_with_poin(cube, true, false, false, false);
+            if (collsion1 == 1)
+            {
                 cube.x += 4;
             }
         }
-        //screen update
+        // screen update
         updateMap();
         background();
         updatePlayer();
         SDL_RenderPresent(renderer);
         SDL_Delay(16);
     }
-    //clean up
+    // clean up
     clear();
     return 0;
 }
-//collision detection function
+// collision detection function
 int check_collision_with_poin(SDL_Rect cube, int moving_right, int moving_left, int moving_up, int moving_down)
 {
     int margin = 12; // Adjust this to change the size of the margin for collision detection
