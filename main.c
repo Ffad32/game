@@ -69,53 +69,75 @@ int main()
             }
         }
         //collision sollution
+        int collsion1,collision2;
+
         if (moving_up && moving_right)
-        {
-            if (check_collision_with_poin(cube, false, false, true, false) == 1 && check_collision_with_poin(cube, true, false, false, false) == 1)
+        {   
+            collsion1=check_collision_with_poin(cube, false, false, true, false);
+            collision2=check_collision_with_poin(cube, true, false, false, false);
+            if (collsion1 == 1 && collision2 == 1)
             {
                 cube.y -= 4;
                 cube.x += 4;
             }
         }
         else if (moving_up && moving_left)
-        {
-            if (check_collision_with_poin(cube, false, true, false, false) == 1 && check_collision_with_poin(cube, false, false, true, false) == 1)
+        {   
+            collsion1=check_collision_with_poin(cube, false, true, false, false);
+            collision2=check_collision_with_poin(cube, false, false, true, false);
+            if (collsion1 == 1 && collision2 == 1)
             {
                 cube.y -= 4;
                 cube.x -= 4;
             }
         }
         else if (moving_down && moving_right)
-        {
-            if (check_collision_with_poin(cube, false, false, false, true) == 1 && check_collision_with_poin(cube, true, false, false, false) == 1)
+        {   
+            collsion1=check_collision_with_poin(cube, false, false, false, true);
+            collision2=check_collision_with_poin(cube, true, false, false, false);
+            if (collsion1 == 1 && collision2 == 1)
             {
                 cube.y += 4;
                 cube.x += 4;
             }
         }
         else if (moving_down && moving_left)
-        {
-            if (check_collision_with_poin(cube, false, true, false, false) == 1 && check_collision_with_poin(cube, false, false, false, true) == 1)
+        {   
+            collsion1=check_collision_with_poin(cube, false, false, false, true);
+            collision2=check_collision_with_poin(cube, false, true, false, false);
+            if (collsion1 == 1 && collision2 == 1)
             {
                 cube.y += 4;
                 cube.x -= 4;
             }
         }
-        else if (moving_up && check_collision_with_poin(cube, false, false, true, false) == 1)
+        else if (moving_up)
         {
+            collsion1=check_collision_with_poin(cube, false, false, true, false);
+            if (collsion1 == 1){
             cube.y -= 4;
+            }
         }
-        else if (moving_down && check_collision_with_poin(cube, false, false, false, true) == 1)
+        else if (moving_down)
         {
+            collsion1=check_collision_with_poin(cube, false, false, false, true);
+            if (collsion1 == 1){
             cube.y += 4;
+            }
         }
-        else if (moving_left && check_collision_with_poin(cube, false, true, false, false) == 1)
+        else if (moving_left)
         {
+            collsion1=check_collision_with_poin(cube, false, true, false, false);
+            if (collsion1 == 1){
             cube.x -= 4;
+            }
         }
-        else if (moving_right && check_collision_with_poin(cube, true, false, false, false) == 1)
+        else if (moving_right)
         {
-            cube.x += 4;
+            collsion1=check_collision_with_poin(cube, true, false, false, false);
+            if (collsion1 == 1){
+                cube.x += 4;
+            }
         }
         //screen update
         updateMap();
