@@ -8,6 +8,8 @@ int main()
     bool moving_down = false;
     bool moving_left = false;
     bool moving_right = false;
+    //stop flag
+    bool stop = false;
     //window and map creation
     test();
     drawcube();
@@ -70,7 +72,10 @@ int main()
         }
         //collision sollution
         int collsion1,collision2;
+        if(collsion1==2 || collision2==2)
+        {
 
+        }
         if (moving_up && moving_right)
         {   
             collsion1=check_collision_with_poin(cube, false, false, true, false);
