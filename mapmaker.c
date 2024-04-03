@@ -9,6 +9,7 @@ typedef struct
     int y_start;
     int y_end;
     int info;
+    int code;
 } Range;
 
 Range ranges[20][15];
@@ -74,7 +75,7 @@ int map(void)
         int j = count % row; // Calculate the column index
 
         ranges[j][i].info = prefix; // Assign the prefix value to the info field of the range
-        printf("%d", ranges[j][i].info);
+        ranges[j][i].code = suffix; // Assign the suffix value to the code field of the range
 
         count++;
     }
