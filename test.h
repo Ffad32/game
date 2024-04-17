@@ -1,9 +1,13 @@
 #define SDL_MAIN_HANDLED
+#ifdef TEST_H
+#error test.h is already included
+#endif
+#define TEST_H
 
 #include <SDL.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include "config.c"
+#include "config.h"
 #include <SDL_image.h>
 
 // global variables

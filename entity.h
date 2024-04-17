@@ -1,3 +1,7 @@
+#ifdef ENTITY_H
+#error entity.h is already included
+#endif
+#define ENTITY_H
 
 enum Direction {
     NORTH,
@@ -22,7 +26,7 @@ struct Entity {
     enum Direction nextStep;
 };
 
-entity_move(struct Entity *entity, int dx, int dy) {
+void entity_move(struct Entity *entity, int dx, int dy) {
     entity->x += dx;
     entity->y += dy;
 }

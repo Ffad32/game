@@ -1,5 +1,5 @@
-#include "test.c"
-#include "mapmaker.c"
+#include "test.h"
+#include "mapmaker.h"
 
 int main()
 {

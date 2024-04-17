@@ -1,3 +1,8 @@
+#ifdef MAPMAKER_H
+#error mapmaker.h is already included
+#endif
+#define MAPMAKER_H
+
 #include <SDL.h>
 #include <stdio.h>
 #include <math.h>
