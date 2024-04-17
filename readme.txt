@@ -19,3 +19,13 @@ gcc -fdiagnostics-color=always -g main.c -o bin/x32/main.exe -I include -L lib/x
 
 start
 .\bin\x32\main.exe
+
+
+
+
+
+
+
+
+
+gcc -dumpmashine
