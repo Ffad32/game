@@ -3,15 +3,14 @@
         {
             "type": "cppbuild",
             "label": "C/C++: gcc.exe build active file",
-            "command": "C:\\msys64\\ucrt64\\bin\\gcc.exe",
+            "command": "C:\\msys64\\mingw64\\bin\\gcc.exe",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g","${workspaceFolder}\\main.c",
-                "-o","${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "-o","${fileDirname}\\bin\\x64\\${fileBasenameNoExtension}.exe",
                 "-I","${workspaceFolder}\\include",
-                "-L","${workspaceFolder}\\lib",
+                "-L","${workspaceFolder}\\lib\\x64",
                 "-lSDL2",
-                "-lSDL2main",
                 "-lSDL2_image"
             ],
             "options": {
