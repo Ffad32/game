@@ -15,7 +15,7 @@ start
 32-bit version\
 
 compile:
-gcc -fdiagnostics-color=always -g main.c -o bin/x32/main.exe -I include -L lib/x32 -lSDL2 -lSDL2_image
+gcc -fdiagnostics-color=always -g main.c -o bin/x32/main.exe -I include -L lib/x32 -lSDL2 -lSDL2_image -lSDL2_ttf
 
 start
 .\bin\x32\main.exe
