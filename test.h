@@ -9,6 +9,7 @@
 #include <stdbool.h>
 #include "config.h"
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 
 // global variables
 SDL_Renderer *renderer;
@@ -38,6 +39,7 @@ int test()
         fprintf(stderr, "SDL_Init Error: %s\n", SDL_GetError());
         return 2;
     }
+    TTF_Init();
 
     // set a window
     window = SDL_CreateWindow("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, config.SCREEN_WIDTH, config.SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
@@ -114,6 +116,7 @@ void clear(void)
     SDL_DestroyRenderer(renderer);
     SDL_DestroyTexture(playerTexture);
     SDL_DestroyWindow(window);
+    TTF_Quit();
     SDL_Quit();
 }
 void background(void)
