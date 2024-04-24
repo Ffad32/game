@@ -121,9 +121,9 @@ void background(void)
     SDL_RenderClear(renderer);
     SDL_RenderCopy(renderer, bgTexture, NULL, NULL);
 }
-/*void mappicchange(char *filename)
+void mapchange(char *picname)
 {
-   bgSurface = IMG_Load("pictures/start.jpg");
+   bgSurface = IMG_Load(picname);
     // check if the image was loaded
     if (!bgSurface)
     {   
@@ -137,4 +137,4 @@ void background(void)
     {
         printf("Unable to create texture: %s\n", SDL_GetError());
     }
-}*/
+}

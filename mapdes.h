@@ -1,18 +1,17 @@
 #include <string.h>
 
-void processMapSquare(int suffix) {
-    char filename[25];
-    char picname[25];
+void processMapSquare(int suffix, char* filename, char* picname) {
+    
     switch (suffix) {
-        case 00001:
+        case 1:
+            strcpy(filename, "maps/map1.map");
+            strcpy(picname, "pictures/New map.jpg");
+            break;
+        case 2:
             strcpy(filename, "maps/map1.map");
             strcpy(picname, "pictures/start.jpg");
             break;
-        case 00002:
-            strcpy(filename, "maps/map1.map");
-            strcpy(picname, "pictures/start.jpg");
-            break;
-        case 00003:
+        case 3:
             strcpy(filename, "maps/map1.map");
             strcpy(picname, "pictures/start.jpg");
             break;

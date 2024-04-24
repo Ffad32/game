@@ -4,6 +4,9 @@
 
 int main()
 {
+    //mpa variables
+    char filename[50]="";
+    char picname[50]="";
     // movement flags for the player
     bool moving_up = false;
     bool moving_down = false;
@@ -76,12 +79,14 @@ int main()
         }
         if (collsion1 == 3 || collision2 == 3)
         {
-            processMapSquare(suffix);
+            // NPC dialog box
         }
 
         if (collsion1 == 2 || collision2 == 2)
         {
-            // changes the background and map to the next level              IMPLEMENT LATER
+            processMapSquare(suffix, filename, picname);
+            mapchange(picname);
+            map(filename);
         }
         // collision sollution
         if (moving_up && moving_right)
