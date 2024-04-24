@@ -6,7 +6,7 @@ cd c:\home\user\main
 64-bit version
 
 compile:
-gcc -fdiagnostics-color=always -g main.c -o bin/x64/main.exe -I include -L lib/x64 -lSDL2 -lSDL2_image
+gcc -fdiagnostics-color=always -g main.c -o bin/x64/main.exe -I include -L lib/x64 -lSDL2 -lSDL2_image -lSDL2_ttf
 
 start
 .\bin\x64\main.exe
