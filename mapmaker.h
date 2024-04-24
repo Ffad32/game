@@ -21,14 +21,14 @@ Range ranges[20][15];
 
 #define LIMIT 10000 
 
-int map(void)
+int map(const char* filename)
 {
 
     int td = 0;
     int code = 0;   // Variable to store the return code
     char name[25];  // Array to store the data
     float size = 0; // Variable to store the data
-    FILE *f = fopen("maps/tos.map", "r");
+    FILE *f = fopen(filename, "r");
     if (f == NULL)
     {
         printf("Error: Could not open file\n");

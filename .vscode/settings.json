@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "stdio.h": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "concepts": "c",
+        "string_view": "c"
     }
 }
