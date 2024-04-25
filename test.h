@@ -22,12 +22,6 @@ typedef struct Scene
 // global variables
 
 SDL_Rect cube;
-SDL_Surface *bgSurface;
-SDL_Surface *playerSurface;
-TTF_Font *font;
-SDL_Color color;
-SDL_Surface *surface;
-SDL_Rect dstrect;
 
 void drawcube(void)
 {
@@ -81,7 +75,7 @@ Scene test(void)
         return scene;
     }
     // map jpg
-    bgSurface = IMG_Load("pictures/start.jpg");
+    SDL_Surface *bgSurface = IMG_Load("pictures/start.jpg");
     // check if the image was loaded
     if (!bgSurface)
     {
@@ -96,7 +90,7 @@ Scene test(void)
         printf("Unable to create texture: %s\n", SDL_GetError());
     }
     // player png
-    playerSurface = IMG_Load("pictures/Screenshot 2024-01-31 161013.png");
+    SDL_Surface *playerSurface = IMG_Load("pictures/Screenshot 2024-01-31 161013.png");
     // check if the image was loaded
     if (!playerSurface)
     {
@@ -148,37 +142,38 @@ void background(SDL_Renderer *rend, SDL_Texture *bgTexture)
 void mapchange(char *picname, Scene scene)
 {
 
-    bgSurface = IMG_Load(picname);
+    SDL_Surface* bggSurface = IMG_Load(picname);
     // check if the image was loaded
-    if (!bgSurface)
+    if (!bggSurface)
     {
         printf("Unable to load image: %s\n", IMG_GetError());
         return;
     }
     SDL_DestroyTexture(scene.bgTexture);
     // create a texture from the surface
-    scene.bgTexture = SDL_CreateTextureFromSurface(scene.renderer, bgSurface);
-    SDL_FreeSurface(bgSurface);
+    scene.bgTexture = SDL_CreateTextureFromSurface(scene.renderer, bggSurface);
+    SDL_FreeSurface(bggSurface);
     // check if the texture was created
     if (!scene.bgTexture)
     {
         printf("Unable to create texture: %s\n", SDL_GetError());
     }
 }
-int updatetext(SDL_Renderer *rend, SDL_Texture *texture)
+int drawtext(SDL_Renderer *rend, SDL_Texture *texture)
 {
-    font = TTF_OpenFont("fonts/Pixellettersfull-BnJ5.ttf", 24);
+    TTF_Font *font = TTF_OpenFont("fonts/Pixellettersfull-BnJ5.ttf", 32);
     if (font == NULL)
     {
         fprintf(stderr, "TTF_OpenFont Error: %s\n", TTF_GetError());
         return 5;
     }
-    color.r = 0;
-    color.g = 0;
+    SDL_Color color;
+    color.r = 255;
+    color.g = 255;
     color.b = 255;
     color.a = 255;
 
-    surface = TTF_RenderUTF8_Solid(font, "Hello, world!", color);
+    SDL_Surface *surface = TTF_RenderUTF8_Solid(font, "Hello, world!", color);
     if (surface == NULL)
     {
         fprintf(stderr, "TTF_RenderText_Solid Error: %s\n", TTF_GetError());
@@ -190,9 +185,9 @@ int updatetext(SDL_Renderer *rend, SDL_Texture *texture)
         fprintf(stderr, "SDL_CreateTextureFromSurface Error: %s\n", SDL_GetError());
         return 7;
     }
-
-    dstrect.x = 50;
-    dstrect.y = 50;
+    SDL_Rect dstrect;
+    dstrect.x = 80;
+    dstrect.y = 600;
     dstrect.w = surface->w;
     dstrect.h = surface->h;
     SDL_RenderCopy(rend, texture, NULL, &dstrect);

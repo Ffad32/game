@@ -169,7 +169,7 @@ int main()
         updateMap(scene.renderer);
         background(scene.renderer, scene.bgTexture);
         updatePlayer(scene.renderer, scene.playerTexture);
-        updatetext(scene.renderer, scene.texture);
+        drawtext(scene.renderer, scene.texture);
         SDL_RenderPresent(scene.renderer);
         SDL_Delay(16);
     }
