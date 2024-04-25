@@ -1,9 +1,10 @@
 #include <string.h>
 
-void processNPCSquare(int suffix, char* filename, char* picname) {
+void processNPCSquare(int suffix, char* text,int scenemun) {
     
     switch (suffix) {
         case 1:
+
             break;
         case 2:
             break;
