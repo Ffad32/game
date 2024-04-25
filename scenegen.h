@@ -1,9 +1,16 @@
 #include <string.h>
 
-void processNPCSquare(int suffix, char* text,int scenemun) {
+int processNPCSquare(int suffix, char* text,int scenemun) {
     
     switch (suffix) {
         case 1:
+swich (scenemun)
+{
+case 1:
+//start dialogue 
+//return 1
+break;
+}
             strcpy(text, "maps/map1.map");
             break;
         case 2:
