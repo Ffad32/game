@@ -20,6 +20,11 @@ SDL_Surface *bgSurface;
 SDL_Texture *bgTexture;
 SDL_Texture *playerTexture = NULL;
 SDL_Surface *playerSurface;
+/*TTF_Font* font;
+SDL_Color color;
+SDL_Surface* surface;
+SDL_Texture* texture;
+SDL_Rect dstrect;*/
 
 void drawcube(void)
 {
@@ -39,7 +44,11 @@ int test()
         fprintf(stderr, "SDL_Init Error: %s\n", SDL_GetError());
         return 2;
     }
-    TTF_Init();
+    // initialize SDL_ttf
+    if (TTF_Init()){
+        fprintf(stderr, "TTF_Init Error: %s\n", TTF_GetError());
+        return 5;
+    }
 
     // set a window
     window = SDL_CreateWindow("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, config.SCREEN_WIDTH, config.SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
@@ -141,3 +150,40 @@ void mapchange(char *picname)
         printf("Unable to create texture: %s\n", SDL_GetError());
     }
 }
+/*void updatetext(void){
+    font = TTF_OpenFont("fonts/Pixelletters-RLm3.ttf", 24);
+    color.r = 0;
+    color.g = 0;
+    color.b = 255;
+    color.a = 255;
+
+    surface = TTF_RenderText_Solid(font, "Hello, world!", color);
+    if (surface == NULL)
+    {
+        fprintf(stderr, "TTF_RenderText_Solid Error: %s\n", TTF_GetError());
+        TTF_CloseFont(font);
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return 6;
+    }
+    texture = SDL_CreateTextureFromSurface(renderer, surface);
+    if (texture == NULL)
+    {
+        fprintf(stderr, "SDL_CreateTextureFromSurface Error: %s\n", SDL_GetError());
+        SDL_FreeSurface(surface);
+        TTF_CloseFont(font);
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return 7;
+    }
+
+    dstrect.x = 50;
+    dstrect.y = 50;
+    dstrect.w = surface->w;
+    dstrect.h = surface->h;
+
+    SDL_FreeSurface(surface);
+    TTF_CloseFont(font);
+}*/
