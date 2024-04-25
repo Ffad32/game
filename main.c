@@ -4,6 +4,8 @@
 
 int main()
 {
+    
+    
     //mpa variables
     char filename[50]="";
     char picname[50]="";
@@ -18,7 +20,7 @@ int main()
     int collsion1, collision2;
     int suffix;
     // window and map creation
-    test();
+    Scene scene=test();
     drawcube();
     map("maps/tos.map");
     // main loop
@@ -85,7 +87,7 @@ int main()
         if (collsion1 == 2 || collision2 == 2)
         {
             processMapSquare(suffix, filename, picname);
-            mapchange(picname);
+            mapchange(picname,scene);
             map(filename);
         }
         // collision sollution
@@ -162,14 +164,16 @@ int main()
             }
         }
         // screen update
-        updateMap();
-        background();
-        updatePlayer();
-        SDL_RenderPresent(renderer);
+    
+        updateMap(scene.renderer);
+        background(scene.renderer, scene.bgTexture);
+        updatePlayer(scene.renderer, scene.playerTexture);
+        updatetext(scene.renderer, scene.texture);
+        SDL_RenderPresent(scene.renderer);
         SDL_Delay(16);
     }
     // clean up
-    clear();
+    clear(scene);
     return 0;
 }
 // collision detection function
