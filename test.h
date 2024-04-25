@@ -11,23 +11,22 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 
-typedef struct Scene {
-SDL_Renderer *renderer;
-SDL_Window *window;
-SDL_Texture *bgTexture;
-SDL_Texture* texture;
-SDL_Texture *playerTexture;
-}Scene;
+typedef struct Scene
+{
+    SDL_Renderer *renderer;
+    SDL_Window *window;
+    SDL_Texture *bgTexture;
+    SDL_Texture *texture;
+    SDL_Texture *playerTexture;
+} Scene;
 // global variables
 
-
 SDL_Rect cube;
-SDL_Rect sq;
 SDL_Surface *bgSurface;
 SDL_Surface *playerSurface;
-TTF_Font* font;
+TTF_Font *font;
 SDL_Color color;
-SDL_Surface* surface;
+SDL_Surface *surface;
 SDL_Rect dstrect;
 
 void drawcube(void)
@@ -39,7 +38,17 @@ void drawcube(void)
     cube.y = config.SCREEN_HEIGHT / 2; // Center the cube
     cube.x = config.SCREEN_WIDTH / 2;  // Center the cube
 }
-
+void seticon(SDL_Window *window)
+{
+    SDL_Surface *iconSurface = IMG_Load("pictures/icon.png");
+    if (iconSurface == NULL)
+    {
+        fprintf(stderr, "IMG_Load Error: %s\n", IMG_GetError());
+        return;
+    }
+    SDL_SetWindowIcon(window, iconSurface);
+    SDL_FreeSurface(iconSurface);
+}
 Scene test(void)
 {
     Scene scene;
@@ -50,13 +59,14 @@ Scene test(void)
         return scene;
     }
     // initialize SDL_ttf
-    if (TTF_Init()){
+    if (TTF_Init())
+    {
         fprintf(stderr, "TTF_Init Error: %s\n", TTF_GetError());
         return scene;
     }
 
     // set a window
-    scene.window = SDL_CreateWindow("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, config.SCREEN_WIDTH, config.SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+    scene.window = SDL_CreateWindow("Edge of destiny", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, config.SCREEN_WIDTH, config.SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
     if (scene.window == NULL)
     {
         fprintf(stderr, "SDL_CreateWindow Error: %s\n", SDL_GetError());
@@ -74,7 +84,7 @@ Scene test(void)
     bgSurface = IMG_Load("pictures/start.jpg");
     // check if the image was loaded
     if (!bgSurface)
-    {   
+    {
         printf("Unable to load image: %s\n", IMG_GetError());
     }
     // create a texture from the surface
@@ -91,7 +101,7 @@ Scene test(void)
     if (!playerSurface)
     {
         printf("Unable to load image: %s\n", IMG_GetError());
-    }  
+    }
     // create a texture from the surface
     scene.playerTexture = SDL_CreateTextureFromSurface(scene.renderer, playerSurface);
     SDL_FreeSurface(playerSurface);
@@ -100,7 +110,7 @@ Scene test(void)
     {
         printf("Unable to create texture: %s\n", SDL_GetError());
     }
-    //logical size of the window
+    // logical size of the window
     SDL_RenderSetLogicalSize(scene.renderer, config.SCREEN_WIDTH, config.SCREEN_HEIGHT);
     return scene;
 }
@@ -113,13 +123,11 @@ void updateMap(SDL_Renderer *rend)
 
     SDL_Rect rect = {0, 0, config.SCREEN_WIDTH, config.SCREEN_HEIGHT};
     SDL_RenderDrawRect(rend, &rect);
-
 }
 void updatePlayer(SDL_Renderer *rend, SDL_Texture *playerTexture)
 {
-    SDL_Rect playerDest = cube; 
+    SDL_Rect playerDest = cube;
     SDL_RenderCopy(rend, playerTexture, NULL, &playerDest);
-
 }
 void clear(Scene scene)
 {
@@ -137,13 +145,13 @@ void background(SDL_Renderer *rend, SDL_Texture *bgTexture)
     SDL_RenderClear(rend);
     SDL_RenderCopy(rend, bgTexture, NULL, NULL);
 }
-void mapchange(char *picname,Scene scene)
+void mapchange(char *picname, Scene scene)
 {
-       
+
     bgSurface = IMG_Load(picname);
     // check if the image was loaded
     if (!bgSurface)
-    {   
+    {
         printf("Unable to load image: %s\n", IMG_GetError());
         return;
     }
@@ -157,7 +165,8 @@ void mapchange(char *picname,Scene scene)
         printf("Unable to create texture: %s\n", SDL_GetError());
     }
 }
-int updatetext(SDL_Renderer *rend,SDL_Texture* texture){
+int updatetext(SDL_Renderer *rend, SDL_Texture *texture)
+{
     font = TTF_OpenFont("fonts/Pixellettersfull-BnJ5.ttf", 24);
     if (font == NULL)
     {

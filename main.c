@@ -23,6 +23,7 @@ int main()
     Scene scene=test();
     drawcube();
     map("maps/tos.map");
+    seticon(scene.window);
     // main loop
     SDL_Event e;
     bool quit = false;
