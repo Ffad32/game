@@ -4,11 +4,10 @@
 
 int main()
 {
-    
-    
-    //mpa variables
-    char filename[50]="";
-    char picname[50]="";
+
+    // mpa variables
+    char filename[50] = "";
+    char picname[50] = "";
     // movement flags for the player
     bool moving_up = false;
     bool moving_down = false;
@@ -20,10 +19,12 @@ int main()
     int collsion1, collision2;
     int suffix;
     // window and map creation
-    Scene scene=test();
+    Scene scene = test();
     drawcube();
     map("maps/tos.map");
     seticon(scene.window);
+    // text
+    bool textfore = false;
     // main loop
     SDL_Event e;
     bool quit = false;
@@ -88,14 +89,14 @@ int main()
         if (collsion1 == 2 || collision2 == 2)
         {
             processMapSquare(suffix, filename, picname);
-            mapchange(picname,scene);
+            mapchange(picname, scene);
             map(filename);
         }
         // collision sollution
         if (moving_up && moving_right)
         {
-            collsion1 = check_collision_with_poin(cube, false, false, true, false,&suffix);
-            collision2 = check_collision_with_poin(cube, true, false, false, false,&suffix);
+            collsion1 = check_collision_with_poin(cube, false, false, true, false, &suffix);
+            collision2 = check_collision_with_poin(cube, true, false, false, false, &suffix);
             if (collsion1 == 1 && collision2 == 1)
             {
                 cube.y -= 4;
@@ -104,8 +105,8 @@ int main()
         }
         else if (moving_up && moving_left)
         {
-            collsion1 = check_collision_with_poin(cube, false, true, false, false,&suffix);
-            collision2 = check_collision_with_poin(cube, false, false, true, false,&suffix);
+            collsion1 = check_collision_with_poin(cube, false, true, false, false, &suffix);
+            collision2 = check_collision_with_poin(cube, false, false, true, false, &suffix);
             if (collsion1 == 1 && collision2 == 1)
             {
                 cube.y -= 4;
@@ -114,8 +115,8 @@ int main()
         }
         else if (moving_down && moving_right)
         {
-            collsion1 = check_collision_with_poin(cube, false, false, false, true,&suffix);
-            collision2 = check_collision_with_poin(cube, true, false, false, false,&suffix);
+            collsion1 = check_collision_with_poin(cube, false, false, false, true, &suffix);
+            collision2 = check_collision_with_poin(cube, true, false, false, false, &suffix);
             if (collsion1 == 1 && collision2 == 1)
             {
                 cube.y += 4;
@@ -124,8 +125,8 @@ int main()
         }
         else if (moving_down && moving_left)
         {
-            collsion1 = check_collision_with_poin(cube, false, false, false, true,&suffix);
-            collision2 = check_collision_with_poin(cube, false, true, false, false,&suffix);
+            collsion1 = check_collision_with_poin(cube, false, false, false, true, &suffix);
+            collision2 = check_collision_with_poin(cube, false, true, false, false, &suffix);
             if (collsion1 == 1 && collision2 == 1)
             {
                 cube.y += 4;
@@ -134,7 +135,7 @@ int main()
         }
         else if (moving_up)
         {
-            collsion1 = check_collision_with_poin(cube, false, false, true, false,&suffix);
+            collsion1 = check_collision_with_poin(cube, false, false, true, false, &suffix);
             if (collsion1 == 1)
             {
                 cube.y -= 4;
@@ -142,7 +143,7 @@ int main()
         }
         else if (moving_down)
         {
-            collsion1 = check_collision_with_poin(cube, false, false, false, true,&suffix);
+            collsion1 = check_collision_with_poin(cube, false, false, false, true, &suffix);
             if (collsion1 == 1)
             {
                 cube.y += 4;
@@ -150,7 +151,7 @@ int main()
         }
         else if (moving_left)
         {
-            collsion1 = check_collision_with_poin(cube, false, true, false, false,&suffix);
+            collsion1 = check_collision_with_poin(cube, false, true, false, false, &suffix);
             if (collsion1 == 1)
             {
                 cube.x -= 4;
@@ -158,18 +159,22 @@ int main()
         }
         else if (moving_right)
         {
-            collsion1 = check_collision_with_poin(cube, true, false, false, false,&suffix);
+            collsion1 = check_collision_with_poin(cube, true, false, false, false, &suffix);
             if (collsion1 == 1)
             {
                 cube.x += 4;
             }
         }
         // screen update
-    
+
         updateMap(scene.renderer);
         background(scene.renderer, scene.bgTexture);
         updatePlayer(scene.renderer, scene.playerTexture);
         drawtext(scene.renderer, scene.texture);
+        if (textfore)
+        {
+            // draw textforeground
+        }
         SDL_RenderPresent(scene.renderer);
         SDL_Delay(16);
     }
@@ -178,7 +183,7 @@ int main()
     return 0;
 }
 // collision detection function
-int check_collision_with_poin(SDL_Rect cube, int moving_right, int moving_left, int moving_up, int moving_down, int* suffix)
+int check_collision_with_poin(SDL_Rect cube, int moving_right, int moving_left, int moving_up, int moving_down, int *suffix)
 {
     int margin = 12; // Adjust this to change the size of the margin for collision detection
 

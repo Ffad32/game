@@ -142,7 +142,7 @@ void background(SDL_Renderer *rend, SDL_Texture *bgTexture)
 void mapchange(char *picname, Scene scene)
 {
 
-    SDL_Surface* bggSurface = IMG_Load(picname);
+    SDL_Surface *bggSurface = IMG_Load(picname);
     // check if the image was loaded
     if (!bggSurface)
     {

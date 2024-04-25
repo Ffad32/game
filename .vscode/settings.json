@@ -3,6 +3,7 @@
         "stdio.h": "c",
         "stdbool.h": "c",
         "concepts": "c",
-        "string_view": "c"
+        "string_view": "c",
+        "sdl_ttf.h": "c"
     }
 }

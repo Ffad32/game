@@ -19,9 +19,9 @@ typedef struct
 
 Range ranges[20][15];
 
-#define LIMIT 10000 
+#define LIMIT 10000
 
-int map(const char* filename)
+int map(const char *filename)
 {
 
     int td = 0;
