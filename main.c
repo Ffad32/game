@@ -1,10 +1,13 @@
 #include "test.h"
 #include "mapmaker.h"
 #include "mapdes.h"
+#include "scenegen.h"
 
 int main()
 {
-
+    Uint32 dialogueEndTime = 0; // timer for dialogue
+    Uint32 espamtimer = 0;
+    int scenenum = 1;
     // mpa variables
     char filename[50] = "";
     char picname[50] = "";
@@ -13,6 +16,7 @@ int main()
     bool moving_down = false;
     bool moving_left = false;
     bool moving_right = false;
+    bool epressed = false;
     // stop flag
     bool stop = false;
     // collision ints
@@ -55,6 +59,9 @@ int main()
                 case SDL_SCANCODE_D:
                     moving_right = true;
                     break;
+                case SDL_SCANCODE_E:
+                    epressed = true;
+                    break;
                 }
             }
             if (e.type == SDL_KEYUP)
@@ -73,6 +80,9 @@ int main()
                 case SDL_SCANCODE_D:
                     moving_right = false;
                     break;
+                case SDL_SCANCODE_E:
+                    epressed = false;
+                    break;
                 }
             }
             // quit event
@@ -81,11 +91,42 @@ int main()
                 quit = true;
             }
         }
-        if (collsion1 == 3 || collision2 == 3)
+        if (SDL_GetTicks() > espamtimer)
         {
-            // NPC dialog box
-        }
+            if (collsion1 == 3 || collision2 == 3)
+            {
+                if (!stop && (SDL_GetTicks() > dialogueEndTime))
+                {
+                    if (processNPCSquare(suffix, scenenum) == 6)
+                    {
+                        printf("End of dialogue reached.\n");
+                        stop = false;
+                        scenenum++;
+                        espamtimer = SDL_GetTicks() + 2000; // set the end time to 2 seconds from now
+                    }
+                    else
+                    {
+                        stop = true;
+                        epressed = false;
+                    }
+                }
 
+                if (epressed == true && SDL_GetTicks() > espamtimer)
+                {
+                    if (processNPCSquare(suffix, scenenum) == 6)
+                    {
+                        printf("End of dialogue reached.\n");
+                        stop = false;
+                        scenenum++;
+                        espamtimer = SDL_GetTicks() + 2000; // set the end time to 2 seconds from now
+                    }
+                    else
+                    {
+                        epressed = false;
+                    }
+                }
+            }
+        }
         if (collsion1 == 2 || collision2 == 2)
         {
             processMapSquare(suffix, filename, picname);
@@ -93,7 +134,7 @@ int main()
             map(filename);
         }
         // collision sollution
-        if (moving_up && moving_right)
+        if (moving_up && moving_right && stop != true)
         {
             collsion1 = check_collision_with_poin(cube, false, false, true, false, &suffix);
             collision2 = check_collision_with_poin(cube, true, false, false, false, &suffix);
@@ -103,7 +144,7 @@ int main()
                 cube.x += 4;
             }
         }
-        else if (moving_up && moving_left)
+        else if (moving_up && moving_left && stop != true)
         {
             collsion1 = check_collision_with_poin(cube, false, true, false, false, &suffix);
             collision2 = check_collision_with_poin(cube, false, false, true, false, &suffix);
@@ -113,7 +154,7 @@ int main()
                 cube.x -= 4;
             }
         }
-        else if (moving_down && moving_right)
+        else if (moving_down && moving_right && stop != true)
         {
             collsion1 = check_collision_with_poin(cube, false, false, false, true, &suffix);
             collision2 = check_collision_with_poin(cube, true, false, false, false, &suffix);
@@ -123,7 +164,7 @@ int main()
                 cube.x += 4;
             }
         }
-        else if (moving_down && moving_left)
+        else if (moving_down && moving_left && stop != true)
         {
             collsion1 = check_collision_with_poin(cube, false, false, false, true, &suffix);
             collision2 = check_collision_with_poin(cube, false, true, false, false, &suffix);
@@ -133,7 +174,7 @@ int main()
                 cube.x -= 4;
             }
         }
-        else if (moving_up)
+        else if (moving_up && stop != true)
         {
             collsion1 = check_collision_with_poin(cube, false, false, true, false, &suffix);
             if (collsion1 == 1)
@@ -141,7 +182,7 @@ int main()
                 cube.y -= 4;
             }
         }
-        else if (moving_down)
+        else if (moving_down && stop != true)
         {
             collsion1 = check_collision_with_poin(cube, false, false, false, true, &suffix);
             if (collsion1 == 1)
@@ -149,7 +190,7 @@ int main()
                 cube.y += 4;
             }
         }
-        else if (moving_left)
+        else if (moving_left && stop != true)
         {
             collsion1 = check_collision_with_poin(cube, false, true, false, false, &suffix);
             if (collsion1 == 1)
@@ -157,7 +198,7 @@ int main()
                 cube.x -= 4;
             }
         }
-        else if (moving_right)
+        else if (moving_right && stop != true)
         {
             collsion1 = check_collision_with_poin(cube, true, false, false, false, &suffix);
             if (collsion1 == 1)

@@ -1,12 +1,14 @@
 #include <string.h>
+#include <stdio.h>
+#define max 1000
 
-int processNPCSquare(int suffix, char *text, int scenemun)
+int processNPCSquare(int suffix, int scenemun)
 {
 
     switch (suffix)
     {
     case 1:
-        dialogueByScene(scenemun, 1, text);
+        dialogue("charactersdialogues/barman.txt");
         break;
     case 2:
         break;
@@ -17,19 +19,31 @@ int processNPCSquare(int suffix, char *text, int scenemun)
         break;
     }
 }
-int dialogueByScene(int scene, int suf, char *text)
-{
-    switch (scene)
-    {
-    case 1:
-        strcpy(text, "maps/map1.map");
-        break;
-    case 2:
-        break;
-    case 3:
-        break;
 
-    default:
-        break;
+FILE* dialogueFile = NULL;
+
+int dialogue(char* NPCnameFile) {
+    char dialoguet[max];
+    if (dialogueFile == NULL) {
+        dialogueFile = fopen(NPCnameFile, "r");
+        if (dialogueFile == NULL) {
+            fprintf(stderr, "Error opening file: %s\n", NPCnameFile);
+            return 1;
+        }
+    }
+
+    if (fgets(dialoguet, max, dialogueFile) == NULL) {
+        fprintf(stderr, "End of dialogue reached.\n");
+        fclose(dialogueFile);
+        dialogueFile = NULL;
+        return 6;
+    }
+    printf("%s", dialoguet);
+}
+
+void endDialogue() {
+    if (dialogueFile != NULL) {
+        fclose(dialogueFile);
+        dialogueFile = NULL;
     }
 }
