@@ -6,7 +6,7 @@ cd c:\home\user\main
 64-bit version
 
 compile:
-gcc -fdiagnostics-color=always -g main.c -o bin/x64/main.exe -I include -L lib/x64 -lSDL2 -lSDL2_image -lSDL2_ttf
+gcc -fdiagnostics-color=always -g main.c -o bin/x64/main.exe -I include -L lib/x64 -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 
 start
 .\bin\x64\main.exe
@@ -15,7 +15,7 @@ start
 32-bit version\
 
 compile:
-gcc -fdiagnostics-color=always -g main.c -o bin/x32/main.exe -I include -L lib/x32 -lSDL2 -lSDL2_image -lSDL2_ttf
+gcc -fdiagnostics-color=always -g main.c -o bin/x32/main.exe -I include -L lib/x32 -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 
 start
 .\bin\x32\main.exe
