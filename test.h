@@ -159,7 +159,7 @@ void mapchange(char *picname, Scene scene)
         printf("Unable to create texture: %s\n", SDL_GetError());
     }
 }
-int drawtext(SDL_Renderer *rend, SDL_Texture *texture)
+int drawtext(SDL_Renderer *rend, SDL_Texture *texture,char *dialogue)
 {
     TTF_Font *font = TTF_OpenFont("fonts/Pixellettersfull-BnJ5.ttf", 32);
     if (font == NULL)
@@ -173,7 +173,7 @@ int drawtext(SDL_Renderer *rend, SDL_Texture *texture)
     color.b = 255;
     color.a = 255;
 
-    SDL_Surface *surface = TTF_RenderUTF8_Solid(font, "Hello, world!", color);
+    SDL_Surface *surface = TTF_RenderUTF8_Solid(font, dialogue, color);
     if (surface == NULL)
     {
         fprintf(stderr, "TTF_RenderText_Solid Error: %s\n", TTF_GetError());
@@ -194,4 +194,14 @@ int drawtext(SDL_Renderer *rend, SDL_Texture *texture)
     SDL_FreeSurface(surface);
     TTF_CloseFont(font);
     return 0;
+}
+void drawBlackRect(SDL_Renderer* rend) {
+    SDL_Rect textforeground;
+    textforeground.x = 0;
+    textforeground.y = config.SCREEN_HEIGHT * 3 / 4;  // start at the bottom fouth of the screen
+    textforeground.w = config.SCREEN_WIDTH;  // width is the full screen width
+    textforeground.h = config.SCREEN_HEIGHT / 4;  // height is one fourth of the screen height
+
+    SDL_SetRenderDrawColor(rend, 0, 0, 0, 255);  // set the draw color to black
+    SDL_RenderFillRect(rend, &textforeground);  // draw the rectangle
 }

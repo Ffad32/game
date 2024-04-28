@@ -21,9 +21,9 @@ int processNPCSquare(int suffix, int scenemun)
 }
 
 FILE* dialogueFile = NULL;
-
+char dialoguet[max] = "";
 int dialogue(char* NPCnameFile) {
-    char dialoguet[max];
+    
     if (dialogueFile == NULL) {
         dialogueFile = fopen(NPCnameFile, "r");
         if (dialogueFile == NULL) {

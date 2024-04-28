@@ -129,10 +129,12 @@ int main()
         }
         if (collsion1 == 2 || collision2 == 2)
         {
+            stop = false;
             processMapSquare(suffix, filename, picname);
             mapchange(picname, scene);
             map(filename);
         }
+
         // collision sollution
         if (moving_up && moving_right && stop != true)
         {
@@ -211,9 +213,11 @@ int main()
         updateMap(scene.renderer);
         background(scene.renderer, scene.bgTexture);
         updatePlayer(scene.renderer, scene.playerTexture);
-        drawtext(scene.renderer, scene.texture);
-        if (textfore)
+        
+        if (stop == true)
         {
+            drawBlackRect(scene.renderer);
+            drawtext(scene.renderer, scene.texture, dialoguet);
             // draw textforeground
         }
         SDL_RenderPresent(scene.renderer);
