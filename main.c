@@ -32,6 +32,7 @@ int main()
     // main loop
     SDL_Event e;
     bool quit = false;
+    playSoundtrack();
     while (!quit)
     {
         // event handling

@@ -10,6 +10,7 @@
 #include "config.h"
 #include <SDL_image.h>
 #include <SDL_ttf.h>
+#include <SDL_mixer.h>
 
 typedef struct Scene
 {
@@ -130,6 +131,7 @@ void clear(Scene scene)
     SDL_DestroyRenderer(scene.renderer);
     SDL_DestroyTexture(scene.playerTexture);
     SDL_DestroyWindow(scene.window);
+    Mix_CloseAudio();
     TTF_Quit();
     SDL_Quit();
 }
@@ -203,4 +205,25 @@ void drawBlackRect(SDL_Renderer* rend) {
 
     SDL_SetRenderDrawColor(rend, 0, 0, 0, 255);  // set the draw color to black
     SDL_RenderFillRect(rend, &textforeground);  // draw the rectangle
+}
+
+void playSoundtrack() {
+    // Initialize SDL_mixer
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+        printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
+        return;
+    }
+
+    // Load music
+    Mix_Music *music = Mix_LoadMUS("music/sound.mp3");
+    if (music == NULL) {
+        printf("Failed to load music. SDL_mixer Error: %s\n", Mix_GetError());
+        return;
+    }
+
+    // Play music
+    if (Mix_PlayMusic(music, -1) == -1) {
+        printf("Failed to play music. SDL_mixer Error: %s\n", Mix_GetError());
+        return;
+    }
 }
