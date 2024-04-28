@@ -97,7 +97,7 @@ int main()
                     {
                         printf("End of dialogue reached.\n");
                         stop = false;
-                        scenenum++;
+                        //scenenum++;
                         espamtimer = SDL_GetTicks() + 2000; // set the end time to 2 seconds from now
                     }
                     else
@@ -113,7 +113,7 @@ int main()
                     {
                         printf("End of dialogue reached.\n");
                         stop = false;
-                        scenenum++;
+                        //scenenum++;
                         espamtimer = SDL_GetTicks() + 2000; // set the end time to 2 seconds from now
                     }
                     else

@@ -8,7 +8,7 @@ int processNPCSquare(int suffix, int scenemun)
     switch (suffix)
     {
     case 1:
-        dialogue("charactersdialogues/barman.txt");
+        barmanSceneChoice(scenemun);
         break;
     case 2:
         break;
@@ -19,7 +19,19 @@ int processNPCSquare(int suffix, int scenemun)
         break;
     }
 }
+int barmanSceneChoice(int scenenum){
+    switch (scenenum)
+    {
+    case 1 :
+        dialogue("charactersdialogues/barman/barmanScene1.txt");
+        break;
+    case 2:
 
+        break;
+    default:
+        break;
+    }
+}
 FILE* dialogueFile = NULL;
 char dialoguet[max] = "";
 int dialogue(char* NPCnameFile) {
