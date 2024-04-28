@@ -38,7 +38,7 @@ int main()
         while (SDL_PollEvent(&e))
         {
             // quit event
-            if (e.type == SDL_QUIT)
+            if (e.type == SDL_QUIT ||e.type == SDL_MOUSEBUTTONDOWN)
             {
                 quit = true;
             }
@@ -85,11 +85,7 @@ int main()
                     break;
                 }
             }
-            // quit event
-            if (e.type == SDL_MOUSEBUTTONDOWN)
-            {
-                quit = true;
-            }
+
         }
         if (SDL_GetTicks() > espamtimer)
         {

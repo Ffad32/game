@@ -20,7 +20,6 @@ typedef struct Scene
     SDL_Texture *playerTexture;
 } Scene;
 // global variables
-
 SDL_Rect cube;
 
 void drawcube(void)

@@ -4,10 +4,15 @@
 #define ENTITY_H
 
 enum Direction {
-    NORTH,
-    SOUTH,
-    WEST,
-    EAST
+    NORTH = 0b001,
+    SOUTH = 0b010,
+    WEST = 0b100,
+    EAST = 0b1000,
+
+    NORTH_WEST = NORTH | WEST,
+    NORTH_EAST = NORTH | EAST,
+    SOUTH_WEST = SOUTH | WEST,
+    SOUTH_EAST = SOUTH | EAST
 };
 
 enum Status {

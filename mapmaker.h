@@ -7,6 +7,13 @@
 #include <stdio.h>
 #include <math.h>
 
+enum MAP_INFO {
+    VOID = 0,
+    ROAD = 1,
+    TRIGGER = 2,
+    GATEWAY = 3
+};
+
 typedef struct
 {
     int x_start;
