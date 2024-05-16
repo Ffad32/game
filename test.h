@@ -11,6 +11,7 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
+#include "entity.h"
 
 typedef struct Scene
 {
@@ -227,3 +228,75 @@ void playSoundtrack() {
         return;
     }
 }
+void player (SDL_Renderer* rend, enum Direction direction) {
+    int frame = 0;
+    switch (direction)
+    {
+    case NORTH:
+        animationset(frame);
+        frame ++;
+        break;
+    case SOUTH:
+        animationset(frame);
+        frame ++;
+        break;
+    case WEST:
+        animationset(frame);
+        frame ++;
+        break;
+    case EAST:
+        animationset(frame);
+        frame ++;
+        break;
+    case NORTH_WEST:
+        animationset(frame);
+        frame ++;
+        break;
+    case NORTH_EAST:
+        animationset(frame);
+        frame ++;
+        break;
+    case SOUTH_WEST:
+        animationset(frame);
+        frame ++;
+        break;
+    case SOUTH_EAST:
+        animationset(frame);
+        frame ++;
+        break;
+    default:
+        break;
+    }
+    SDL_Surface* playerSurface1 = IMG_Load("pictures/Screenshot 2024-01-31 161013.png");   
+}
+void animationset(int frame,enum Direction direction){
+    switch (direction)
+    {
+    case NORTH:
+        
+        break;
+    case SOUTH:
+        
+        break;
+    case WEST:
+        
+        break;
+    case EAST:
+        
+        break;
+    case NORTH_WEST:
+        
+        break;
+    case NORTH_EAST:
+        
+        break;
+    case SOUTH_WEST:
+        
+        break;
+    case SOUTH_EAST:
+        
+        break;
+    default:
+        break;
+    }
+}   
