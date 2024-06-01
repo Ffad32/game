@@ -63,17 +63,17 @@ int map(const char *filename)
 
     // getting map data
 
-    int row = 20;
-    int col = 15;
+    int col = 20;
+    int row = 15;
     int count = 0;
     int prefix, suffix;
-    float sx = config.SCREEN_WIDTH / row;
-    float sy = config.SCREEN_HEIGHT / col;
+    float sx = config.SCREEN_WIDTH / col;
+    float sy = config.SCREEN_HEIGHT / row;
     int x = 0;
     int y = 0;
-    for (int i = 0; i < col; i++)
+    for (int i = 0; i < row; i++)
     {
-        for (int j = 0; j < row; j++)
+        for (int j = 0; j < col; j++)
         {
             ranges[j][i].x_start = j * sx;
             ranges[j][i].x_end = j * sx + sx;
@@ -83,8 +83,8 @@ int map(const char *filename)
     }
     while (count < LIMIT && fscanf(f, "%2d:%4d", &prefix, &suffix) == 2)
     {
-        int i = count / row; // Calculate the row index
-        int j = count % row; // Calculate the column index
+        int i = count / col; // Calculate the col index
+        int j = count % col; // Calculate the column index
 
         ranges[j][i].info = prefix; // Assign the prefix value to the info field of the range
         ranges[j][i].code = suffix; // Assign the suffix value to the code field of the range
@@ -92,5 +92,6 @@ int map(const char *filename)
         count++;
     }
     fclose(f);
+    printf("jej");
     return 0;
 }

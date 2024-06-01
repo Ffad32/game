@@ -1,9 +1,8 @@
-#ifdef ENTITY_H
-#error entity.h is already included
-#endif
+#ifndef ENTITY_H
 #define ENTITY_H
 
 enum Direction {
+    NONE = 0b0000,
     NORTH = 0b001,
     SOUTH = 0b010,
     WEST = 0b100,
@@ -18,6 +17,7 @@ enum Direction {
 enum Status {
     HOLD,
     MOVING,
+    DIALOGUE,
 };
 
 struct Entity {
@@ -38,3 +38,5 @@ void entity_move(struct Entity *entity, int dx, int dy) {
 /*entity_render(struct Entity *entity, SDL_Renderer *renderer) {
     // render entity
 }*/
+
+#endif //ENTITY_H

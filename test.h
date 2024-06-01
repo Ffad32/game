@@ -11,7 +11,7 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
-#include "entity.h"
+//#include "entity.h"
 
 typedef struct Scene
 {
@@ -59,9 +59,12 @@ Scene test(void)
         fprintf(stderr, "TTF_Init Error: %s\n", TTF_GetError());
         return scene;
     }
-
+    SDL_DisplayMode dm;
+    if(SDL_GetDesktopDisplayMode(0,&dm)!=0){
+        fprintf(stderr,"SDL_GetDesktopDisplayMode Error : %s\n", SDL_GetError());
+    }
     // set a window
-    scene.window = SDL_CreateWindow("Edge of destiny", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, config.SCREEN_WIDTH, config.SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+    scene.window = SDL_CreateWindow("Edge of destiny", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, dm.w, dm.h-50, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
     if (scene.window == NULL)
     {
         fprintf(stderr, "SDL_CreateWindow Error: %s\n", SDL_GetError());
@@ -75,6 +78,9 @@ Scene test(void)
         fprintf(stderr, "SDL_CreateRenderer Error: %s\n", SDL_GetError());
         return scene;
     }
+    // logical size of the window
+    SDL_RenderSetLogicalSize(scene.renderer, config.SCREEN_WIDTH, config.SCREEN_HEIGHT);
+
     // map jpg
     SDL_Surface *bgSurface = IMG_Load("pictures/start.jpg");
     // check if the image was loaded
@@ -105,8 +111,6 @@ Scene test(void)
     {
         printf("Unable to create texture: %s\n", SDL_GetError());
     }
-    // logical size of the window
-    SDL_RenderSetLogicalSize(scene.renderer, config.SCREEN_WIDTH, config.SCREEN_HEIGHT);
     return scene;
 }
 void updateMap(SDL_Renderer *rend)
@@ -138,7 +142,7 @@ void clear(Scene scene)
 }
 void background(SDL_Renderer *rend, SDL_Texture *bgTexture)
 {
-    SDL_RenderClear(rend);
+    //SDL_RenderClear(rend);
     SDL_RenderCopy(rend, bgTexture, NULL, NULL);
 }
 void mapchange(char *picname, Scene scene)
@@ -228,7 +232,7 @@ void playSoundtrack() {
         return;
     }
 }
-void player (SDL_Renderer* rend, enum Direction direction) {
+/*void player (SDL_Renderer* rend, enum Direction direction) {
     int frame = 0;
     switch (direction)
     {
@@ -299,4 +303,4 @@ void animationset(int frame,enum Direction direction){
     default:
         break;
     }
-}   
+}   */

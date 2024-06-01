@@ -2,26 +2,26 @@
 #include "mapmaker.h"
 #include "mapdes.h"
 #include "scenegen.h"
+#include "entity.h"
 
 int main()
 {
+    enum Direction direction;
+    enum Status status = MOVING;
     Uint32 dialogueEndTime = 0; // timer for dialogue
     Uint32 espamtimer = 0;
     int scenenum = 1;
     // mpa variables
-    char filename[50] = "";
-    char picname[50] = "";
+    char filename[100] = "";
+    char picname[100] = "";
     // movement flags for the player
     bool moving_up = false;
     bool moving_down = false;
     bool moving_left = false;
     bool moving_right = false;
     bool epressed = false;
-    // stop flag
-    bool stop = false;
     // collision ints
-    int collsion1, collision2;
-    int suffix;
+    Range collision;
     // window and map creation
     Scene scene = test();
     drawcube();
@@ -39,7 +39,7 @@ int main()
         while (SDL_PollEvent(&e))
         {
             // quit event
-            if (e.type == SDL_QUIT ||e.type == SDL_MOUSEBUTTONDOWN)
+            if (e.type == SDL_QUIT || e.type == SDL_MOUSEBUTTONDOWN)
             {
                 quit = true;
             }
@@ -86,35 +86,38 @@ int main()
                     break;
                 }
             }
-
         }
+
+        direction = keyToDirection(moving_right, moving_left, moving_up, moving_down);
+        // printf("Direction: %d\n", direction);
+
         if (SDL_GetTicks() > espamtimer)
         {
-            if (collsion1 == 3 || collision2 == 3)
+            if (collision.info == 3)
             {
-                if (!stop && (SDL_GetTicks() > dialogueEndTime))
+                if (status == MOVING && (SDL_GetTicks() > dialogueEndTime))
                 {
-                    if (processNPCSquare(suffix, scenenum) == 6)
+                    if (processNPCSquare(collision.code, scenenum) == 6)
                     {
                         printf("End of dialogue reached.\n");
-                        stop = false;
-                        //scenenum++;
+                        status = MOVING;
+                        // scenenum++;
                         espamtimer = SDL_GetTicks() + 2000; // set the end time to 2 seconds from now
                     }
                     else
                     {
-                        stop = true;
+                        status = DIALOGUE;
                         epressed = false;
                     }
                 }
 
                 if (epressed == true && SDL_GetTicks() > espamtimer)
                 {
-                    if (processNPCSquare(suffix, scenenum) == 6)
+                    if (processNPCSquare(collision.code, scenenum) == 6)
                     {
                         printf("End of dialogue reached.\n");
-                        stop = false;
-                        //scenenum++;
+                        status = MOVING;
+                        // scenenum++;
                         espamtimer = SDL_GetTicks() + 2000; // set the end time to 2 seconds from now
                     }
                     else
@@ -124,94 +127,38 @@ int main()
                 }
             }
         }
-        if (collsion1 == 2 || collision2 == 2)
+        if (collision.info == 2)
         {
-            stop = false;
-            processMapSquare(suffix, filename, picname);
+            status = HOLD;
+            processMapSquare(collision.code, filename, picname);
             mapchange(picname, scene);
             map(filename);
+            status = MOVING;
+        }
+        // movemet sollution
+        if (status == MOVING)
+        {
+            SDL_Rect target = {cube.x, cube.y, 50, 50};
+            moving(direction, &target);
+
+            // collision sollution
+            // collision = detect(direction, &suffix,target);
+
+            canMove(target, direction, &collision);
+            // printf("collll: %d\n",collision);
+            if (collision.info == 1)
+            {
+                moving(direction, &cube);
+            }
         }
 
-        // collision sollution
-        if (moving_up && moving_right && stop != true)
-        {
-            collsion1 = check_collision_with_poin(cube, false, false, true, false, &suffix);
-            collision2 = check_collision_with_poin(cube, true, false, false, false, &suffix);
-            if (collsion1 == 1 && collision2 == 1)
-            {
-                cube.y -= 4;
-                cube.x += 4;
-            }
-        }
-        else if (moving_up && moving_left && stop != true)
-        {
-            collsion1 = check_collision_with_poin(cube, false, true, false, false, &suffix);
-            collision2 = check_collision_with_poin(cube, false, false, true, false, &suffix);
-            if (collsion1 == 1 && collision2 == 1)
-            {
-                cube.y -= 4;
-                cube.x -= 4;
-            }
-        }
-        else if (moving_down && moving_right && stop != true)
-        {
-            collsion1 = check_collision_with_poin(cube, false, false, false, true, &suffix);
-            collision2 = check_collision_with_poin(cube, true, false, false, false, &suffix);
-            if (collsion1 == 1 && collision2 == 1)
-            {
-                cube.y += 4;
-                cube.x += 4;
-            }
-        }
-        else if (moving_down && moving_left && stop != true)
-        {
-            collsion1 = check_collision_with_poin(cube, false, false, false, true, &suffix);
-            collision2 = check_collision_with_poin(cube, false, true, false, false, &suffix);
-            if (collsion1 == 1 && collision2 == 1)
-            {
-                cube.y += 4;
-                cube.x -= 4;
-            }
-        }
-        else if (moving_up && stop != true)
-        {
-            collsion1 = check_collision_with_poin(cube, false, false, true, false, &suffix);
-            if (collsion1 == 1)
-            {
-                cube.y -= 4;
-            }
-        }
-        else if (moving_down && stop != true)
-        {
-            collsion1 = check_collision_with_poin(cube, false, false, false, true, &suffix);
-            if (collsion1 == 1)
-            {
-                cube.y += 4;
-            }
-        }
-        else if (moving_left && stop != true)
-        {
-            collsion1 = check_collision_with_poin(cube, false, true, false, false, &suffix);
-            if (collsion1 == 1)
-            {
-                cube.x -= 4;
-            }
-        }
-        else if (moving_right && stop != true)
-        {
-            collsion1 = check_collision_with_poin(cube, true, false, false, false, &suffix);
-            if (collsion1 == 1)
-            {
-                cube.x += 4;
-            }
-        }
         // screen update
 
         updateMap(scene.renderer);
         background(scene.renderer, scene.bgTexture);
         updatePlayer(scene.renderer, scene.playerTexture);
-        
-        if (stop == true)
+
+        if (status == DIALOGUE)
         {
             drawBlackRect(scene.renderer);
             drawtext(scene.renderer, scene.texture, dialoguet);
@@ -225,50 +172,123 @@ int main()
     return 0;
 }
 // collision detection function
-int check_collision_with_poin(SDL_Rect cube, int moving_right, int moving_left, int moving_up, int moving_down, int *suffix)
+
+void moving(enum Direction direction, SDL_Rect *rect)
 {
-    int margin = 12; // Adjust this to change the size of the margin for collision detection
-
-    int left_margin = moving_left ? margin : 0;
-    int right_margin = moving_right ? margin : 0;
-    int top_margin = moving_up ? margin : 0;
-    int bottom_margin = moving_down ? margin : 0;
-
-    for (int i = 0; i < 15; i++)
+    if (direction & NORTH)
     {
-        for (int j = 0; j < 20; j++)
+        (*rect).y -= 4;
+    }
+    if (direction & SOUTH)
+    {
+        (*rect).y += 4;
+    }
+    if (direction & WEST)
+    {
+        (*rect).x -= 4;
+    }
+    if (direction & EAST)
+    {
+        (*rect).x += 4;
+    }
+}
+
+int keyToDirection(int moving_right, int moving_left, int moving_up, int moving_down)
+{
+    if (moving_right && moving_up)
+    {
+        return NORTH_EAST;
+    }
+    if (moving_right && moving_down)
+    {
+        return SOUTH_EAST;
+    }
+    if (moving_left && moving_up)
+    {
+        return NORTH_WEST;
+    }
+    if (moving_left && moving_down)
+    {
+        return SOUTH_WEST;
+    }
+    if (moving_right)
+    {
+        return EAST;
+    }
+    if (moving_left)
+    {
+        return WEST;
+    }
+    if (moving_up)
+    {
+        return NORTH;
+    }
+    if (moving_down)
+    {
+        return SOUTH;
+    }
+    return NONE;
+}
+
+bool intersect(SDL_Rect rect1, SDL_Rect rect2)
+{
+    bool inter = SDL_HasIntersection(&rect1, &rect2) == SDL_TRUE;
+    return inter;
+}
+
+void canMove(SDL_Rect rect, enum Direction direction, Range *lastCode)
+{
+    int i = rect.x / 51.2;
+    int j = rect.y / 51.2;
+
+    // printf("ranges: %d, %d\n",i,j);
+    lastCode->info = 1;
+
+    if (direction & NORTH)
+    {
+        testRange(rect, ranges[i][j], lastCode);
+        testRange(rect, ranges[i - 1][j], lastCode);
+        testRange(rect, ranges[i + 1][j], lastCode);
+    }
+    if (direction & SOUTH)
+    {
+        testRange(rect, ranges[i][j + 1], lastCode);
+        testRange(rect, ranges[i - 1][j + 1], lastCode);
+        testRange(rect, ranges[i + 1][j + 1], lastCode);
+    }
+    if (direction & WEST)
+    {
+        testRange(rect, ranges[i][j], lastCode);
+        testRange(rect, ranges[i][j - 1], lastCode);
+        testRange(rect, ranges[i][j + 1], lastCode);
+    }
+    if (direction & EAST)
+    {
+        testRange(rect, ranges[i + 1][j], lastCode);
+        testRange(rect, ranges[i + 1][j - 1], lastCode);
+        testRange(rect, ranges[i + 1][j + 1], lastCode);
+    }
+}
+
+SDL_Rect rangeToRect(Range range)
+{
+    SDL_Rect target;
+    target.h = 50;
+    target.w = 50;
+    target.x = range.x_start;
+    target.y = range.y_start;
+    return target;
+}
+
+void testRange(SDL_Rect rect, Range range, Range *lastCode)
+{
+    if (range.info != 1)
+    {
+        if (intersect(rect, rangeToRect(range)) == true)
         {
-            Range range = ranges[i][j];
-            if (moving_right && cube.x + cube.w + margin > range.x_start && cube.x + cube.w <= range.x_end &&
-                cube.y < range.y_end && cube.y + cube.h > range.y_start)
-            {
-                printf("Collision detected with range at (%d, %d) with info = %d and code %d\n", i, j, range.info, range.code);
-                *suffix = range.code;
-                return range.info;
-            }
-            if (moving_left && cube.x - margin < range.x_end && cube.x >= range.x_start &&
-                cube.y < range.y_end && cube.y + cube.h > range.y_start)
-            {
-                printf("Collision detected with range at (%d, %d) with info = %d and code %d\n", i, j, range.info, range.code);
-                *suffix = range.code;
-                return range.info;
-            }
-            if (moving_up && cube.y - margin < range.y_end && cube.y >= range.y_start &&
-                cube.x < range.x_end && cube.x + cube.w > range.x_start)
-            {
-                printf("Collision detected with range at (%d, %d) with info = %d and code %d\n", i, j, range.info, range.code);
-                *suffix = range.code;
-                return range.info;
-            }
-            if (moving_down && cube.y + cube.h + margin > range.y_start && cube.y + cube.h <= range.y_end &&
-                cube.x < range.x_end && cube.x + cube.w > range.x_start)
-            {
-                printf("Collision detected with range at (%d, %d) with info = %d and code %d\n", i, j, range.info, range.code);
-                *suffix = range.code;
-                return range.info;
-            }
+            // printf("tttttt");
+            if (lastCode->info == 1 || (range.info > lastCode->info))
+                *lastCode = range;
         }
     }
-
-    return 0;
 }
