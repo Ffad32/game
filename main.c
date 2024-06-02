@@ -23,7 +23,9 @@ int main()
     // collision ints
     Range collision;
     // window and map creation
+
     Scene scene = test();
+
     drawcube();
     map("maps/tos.map");
     seticon(scene.window);
@@ -131,7 +133,7 @@ int main()
         {
             status = HOLD;
             processMapSquare(collision.code, filename, picname);
-            mapchange(picname, scene);
+            mapchange(picname, &scene);
             map(filename);
             status = MOVING;
         }
@@ -155,7 +157,7 @@ int main()
         // screen update
 
         updateMap(scene.renderer);
-        background(scene.renderer, scene.bgTexture);
+        renderBackground(scene.renderer, scene.bgTexture);
         updatePlayer(scene.renderer, scene.playerTexture);
 
         if (status == DIALOGUE)
@@ -177,19 +179,19 @@ void moving(enum Direction direction, SDL_Rect *rect)
 {
     if (direction & NORTH)
     {
-        (*rect).y -= 4;
+        rect->y -= 4;
     }
     if (direction & SOUTH)
     {
-        (*rect).y += 4;
+        rect->y += 4;
     }
     if (direction & WEST)
     {
-        (*rect).x -= 4;
+        rect->x -= 4;
     }
     if (direction & EAST)
     {
-        (*rect).x += 4;
+        rect->x += 4;
     }
 }
 

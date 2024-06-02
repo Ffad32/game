@@ -11,7 +11,9 @@
                 "-I","${workspaceFolder}\\include",
                 "-L","${workspaceFolder}\\lib\\x64",
                 "-lSDL2",
-                "-lSDL2_image"
+                "-lSDL2_image",
+                "-lSDL2_ttf",
+                "-lSDL2_mixer"
             ],
             "options": {
                 "cwd": "${fileDirname}"
