@@ -3,7 +3,6 @@
 #include "mapdes.h"
 #include "scenegen.h"
 #include "entity.h"
-//keys
 
     
 int main()
@@ -33,7 +32,7 @@ int main()
     Scene scene = test();
 
     drawcube();
-    map("maps/tos.map");
+    map("maps/starting map.map");
     seticon(scene.window);
     // text
     bool textfore = false;
