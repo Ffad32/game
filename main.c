@@ -3,9 +3,15 @@
 #include "mapdes.h"
 #include "scenegen.h"
 #include "entity.h"
+//keys
 
+    
 int main()
 {
+
+    //keyChain.actOneKey = false;
+    //keyChain.bedRoomKey = false;
+    
     enum Direction direction;
     enum Status status = MOVING;
     Uint32 dialogueEndTime = 0; // timer for dialogue
@@ -99,9 +105,10 @@ int main()
             {
                 if (status == MOVING && (SDL_GetTicks() > dialogueEndTime))
                 {
-                    if (processNPCSquare(collision.code, scenenum) == 6)
+                    if (processNPCSquare(collision.code, scenenum,&keyChain) == 6)
                     {
                         printf("End of dialogue reached.\n");
+                        //keyChain.actOneKey = true;
                         status = MOVING;
                         // scenenum++;
                         espamtimer = SDL_GetTicks() + 2000; // set the end time to 2 seconds from now
@@ -115,9 +122,10 @@ int main()
 
                 if (epressed == true && SDL_GetTicks() > espamtimer)
                 {
-                    if (processNPCSquare(collision.code, scenenum) == 6)
+                    if (processNPCSquare(collision.code, scenenum,&keyChain) == 6)
                     {
                         printf("End of dialogue reached.\n");
+                        //keyChain.actOneKey = true;
                         status = MOVING;
                         // scenenum++;
                         espamtimer = SDL_GetTicks() + 2000; // set the end time to 2 seconds from now
@@ -131,10 +139,13 @@ int main()
         }
         if (collision.info == 2)
         {
+            bool temp = false;
             status = HOLD;
-            processMapSquare(collision.code, filename, picname);
+            processMapSquare(collision.code, filename, picname,&keyChain);
+            if (temp = true){
             mapchange(picname, &scene);
             map(filename);
+            }
             status = MOVING;
         }
         // movemet sollution

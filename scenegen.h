@@ -2,7 +2,8 @@
 #include <stdio.h>
 #define max 1000
 
-int processNPCSquare(int suffix, int scenemun)
+
+int processNPCSquare(int suffix, int scenemun, KeyChain *key)
 {
 
     switch (suffix)
@@ -11,7 +12,7 @@ int processNPCSquare(int suffix, int scenemun)
         dialogue("charactersdialogues/stranger/stranger.txt");
         break;
     case 2:
-        barmanSceneChoice(scenemun);
+        barmanSceneChoice(scenemun,&keyChain);
         break;
     case 3:
         break;
@@ -20,11 +21,12 @@ int processNPCSquare(int suffix, int scenemun)
         break;
     }
 }
-int barmanSceneChoice(int scenenum){
+int barmanSceneChoice(int scenenum,KeyChain *key){
     switch (scenenum)
     {
     case 1 :
         dialogue("charactersdialogues/barman/barmanACT1.txt");
+        //key->bedRoomKey= true;
         break;
     case 2:
         dialogue("charactersdialogues/barman/barmanACT2.txt");
@@ -49,6 +51,7 @@ int dialogue(char* NPCnameFile) {
         fprintf(stderr, "End of dialogue reached.\n");
         fclose(dialogueFile);
         dialogueFile = NULL;
+        
         return 6;
     }
     printf("%s", dialoguet);

@@ -22,6 +22,12 @@ typedef struct Scene
     SDL_Texture *texture;
     SDL_Texture *playerTexture;
 } Scene;
+typedef struct Keychain
+{
+    bool actOneKey;
+    bool bedRoomKey;
+}KeyChain;
+    KeyChain keyChain;
 
 // global variables for player
 SDL_Rect cube;

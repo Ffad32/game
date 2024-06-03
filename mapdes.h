@@ -1,15 +1,19 @@
 #include <string.h>
+//#include "scenegen.h"
 
-void processMapSquare(int suffix, char *filename, char *picname)
+void processMapSquare(int suffix, char *filename, char *picname, KeyChain *key)
 {
-
+    
     switch (suffix)
     {
     case 1:
+        if(key->actOneKey == true){
         strcpy(filename, "maps/tos copy.map");
         strcpy(picname, "pictures/mapPic/taverNearNight.jpg");
         cube.x=((config.SCREEN_WIDTH/2)-(cube.w/2));
         cube.y=((config.SCREEN_HEIGHT/2)-(cube.h/2));
+        break;
+        }
         break;
     case 2:
         strcpy(filename, "maps/tos copy 2.map");

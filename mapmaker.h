@@ -45,18 +45,18 @@ int map(const char *filename)
     // getting map info
 
     fscanf(f, "%*[^\n]\n"); // Skip the first line
-    if (fscanf(f, "code=%4d\n", &code) == 1)
+    if (fscanf(f, "code=%4d\n", &code) != 1)
     {
-        printf("Code: %d\n", code);
+        printf("code error");
     }
-    if (fscanf(f, "name=%24s\n", name) == 1)
+    if (fscanf(f, "name=%24s\n", name) != 1)
     {
-        printf("Name: %s\n", name);
+        printf("name error");
     }
     fscanf(f, "%*[^\n]\n"); // Skip the third line
-    if (fscanf(f, "size=%f\n", &size) == 1)
+    if (fscanf(f, "size=%f\n", &size) != NULL) /////////// change pls 
     {
-        printf("Size: %f\n", size);
+        printf("Size error\n");
     }
     fscanf(f, "%*[^\n]\n");
     fscanf(f, "%*[^\n]\n");
@@ -92,6 +92,6 @@ int map(const char *filename)
         count++;
     }
     fclose(f);
-    printf("jej");
+    printf("map layout updated sucesfully");
     return 0;
 }
