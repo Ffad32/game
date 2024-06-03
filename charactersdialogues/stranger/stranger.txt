@@ -3,9 +3,10 @@ Seraphine: Where am I?
 Stranger: You are in a Startorswill, home of your mighty lord.
 Seraphine: Mighty lord? Who rules this region?
 Stranger: Our almighty queen, name
-Seraphine: Thank you kind man, I’ll be on my way…
+Seraphine: Thank you kind man, Ill be on my way…
 Stranger: Wait! 
 Seraphine: …
-Stranger: Just beware of the night, there are rumors forming about the dark creatures, living in the shadows, dying to taste your blood. 
+Stranger: Just beware of the night, there are rumors forming about the dark creatures
+Stranger: There are living in the shadows, dying to taste your blood. 
 Seraphine: Dark creatures? 
 Stranger: Vampires.

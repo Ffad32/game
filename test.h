@@ -13,6 +13,7 @@
 #include <SDL_mixer.h>
 // #include "entity.h"
 
+//set the starting scene required textures and modifications
 typedef struct Scene
 {
     SDL_Renderer *renderer;
@@ -22,19 +23,20 @@ typedef struct Scene
     SDL_Texture *playerTexture;
 } Scene;
 
-// global variables
+// global variables for player
 SDL_Rect cube;
 
 void drawcube(void)
 {
-    cube.w = 50;                       // Width of the cube
-    cube.h = 50;                       // Height of the cube
-    cube.x = 0;                        // Initial x position of the cube
-    cube.y = 0;                        // Initial y position of the cube
-    cube.y = config.SCREEN_HEIGHT / 2; // Center the cube
-    cube.x = config.SCREEN_WIDTH / 2;  // Center the cube
+    cube.w = 50;                                    // Width of the cube
+    cube.h = 50;                                    // Height of the cube
+    cube.x = 0;                                     // Initial x position of the cube
+    cube.y = 0;                                     // Initial y position of the cube  
+    cube.x=((config.SCREEN_WIDTH/2)-(cube.w/2));    // Center the cube
+    cube.y=((config.SCREEN_HEIGHT/2)-(cube.h/2));   // Center the cube  
 }
 
+//set icon for this game window
 void seticon(SDL_Window *window)
 {
     SDL_Surface *iconSurface = IMG_Load("pictures/icon.png");
@@ -47,6 +49,7 @@ void seticon(SDL_Window *window)
     SDL_FreeSurface(iconSurface);
 }
 
+//setting the basic starting textures and window
 Scene test(void)
 {
     Scene scene;
@@ -87,7 +90,7 @@ Scene test(void)
     SDL_RenderSetLogicalSize(scene.renderer, config.SCREEN_WIDTH, config.SCREEN_HEIGHT);
 
     // map jpg
-    scene.bgTexture = IMG_LoadTexture(scene.renderer, "pictures/start.jpg"); // check if the image was loaded
+    scene.bgTexture = IMG_LoadTexture(scene.renderer, "pictures/mapPic/start.jpg"); // check if the image was loaded
     // check if the texture was created
     if (!scene.bgTexture)
     {
@@ -103,6 +106,8 @@ Scene test(void)
 
     return scene;
 }
+
+//renderer update
 void updateMap(SDL_Renderer *rend)
 {
     // set render color
@@ -114,12 +119,14 @@ void updateMap(SDL_Renderer *rend)
     SDL_RenderDrawRect(rend, &rect);
 }
 
+//updating player cube
 void updatePlayer(SDL_Renderer *rend, SDL_Texture *playerTexture)
 {
     SDL_Rect playerDest = cube;
     SDL_RenderCopy(rend, playerTexture, NULL, &playerDest);
 }
 
+//clearing every oopen SDL_structure
 void clear(Scene scene)
 {
     // clean up resources
@@ -133,6 +140,7 @@ void clear(Scene scene)
     SDL_Quit();
 }
 
+// rendering background texture
 void renderBackground(SDL_Renderer *rend, SDL_Texture *bgTexture)
 {
     // SDL_RenderClear(rend);
@@ -141,6 +149,7 @@ void renderBackground(SDL_Renderer *rend, SDL_Texture *bgTexture)
     };
 }
 
+// change background
 void mapchange(char *picname, Scene* scene)
 {
     if (scene->bgTexture != NULL)
@@ -156,6 +165,7 @@ void mapchange(char *picname, Scene* scene)
     }
 }
 
+//text rendering
 int drawtext(SDL_Renderer *rend, SDL_Texture *texture, char *dialogue)
 {
     TTF_Font *font = TTF_OpenFont("fonts/Pixellettersfull-BnJ5.ttf", 32);
@@ -193,6 +203,7 @@ int drawtext(SDL_Renderer *rend, SDL_Texture *texture, char *dialogue)
     return 0;
 }
 
+//render text background
 void drawBlackRect(SDL_Renderer *rend)
 {
     SDL_Rect textforeground;
@@ -205,6 +216,7 @@ void drawBlackRect(SDL_Renderer *rend)
     SDL_RenderFillRect(rend, &textforeground);  // draw the rectangle
 }
 
+//start soundtrack
 void playSoundtrack()
 {
     // Initialize SDL_mixer
