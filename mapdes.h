@@ -27,7 +27,7 @@ bool processMapSquare(int suffix, char *filename, char *picname, KeyChain *key)
     case 3:
         strcpy(filename, "maps/bedroommap.map");
         strcpy(picname, "pictures/mapPic/bedroom.jpg");
-        cube.x = ((config.SCREEN_WIDTH / 2) - (cube.w / 2)+100);
+        cube.x = ((config.SCREEN_WIDTH / 2) - (cube.w / 2) + 100);
         cube.y = ((config.SCREEN_HEIGHT / 2) - (cube.h / 2));
         return true;
         break;

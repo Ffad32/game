@@ -28,7 +28,7 @@ Range ranges[20][15];
 
 #define LIMIT 10000
 
-int map(const char *filename)
+int loadMapDefinition(const char *filename)
 {
 
     int td = 0;

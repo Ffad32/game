@@ -13,7 +13,7 @@
 #include <SDL_mixer.h>
 // #include "entity.h"
 
-//set the starting scene required textures and modifications
+// set the starting scene required textures and modifications
 typedef struct Scene
 {
     SDL_Renderer *renderer;
@@ -26,22 +26,22 @@ typedef struct Keychain
 {
     bool actOneKey;
     bool bedRoomKey;
-}KeyChain;
+} KeyChain;
 
 // global variables for player
 SDL_Rect cube;
 
 void drawcube(void)
 {
-    cube.w = 50;                                    // Width of the cube
-    cube.h = 50;                                    // Height of the cube
-    cube.x = 0;                                     // Initial x position of the cube
-    cube.y = 0;                                     // Initial y position of the cube  
-    cube.x=((config.SCREEN_WIDTH/2)-(cube.w/2));    // Center the cube
-    cube.y=((config.SCREEN_HEIGHT/2)-(cube.h/2));   // Center the cube  
+    cube.w = 60;                                          // Width of the cube
+    cube.h = 60;                                          // Height of the cube
+    cube.x = 0;                                           // Initial x position of the cube
+    cube.y = 0;                                           // Initial y position of the cube
+    cube.x = ((config.SCREEN_WIDTH / 2) - (cube.w / 2));  // Center the cube
+    cube.y = ((config.SCREEN_HEIGHT / 2) - (cube.h / 2)); // Center the cube
 }
 
-//set icon for this game window
+// set icon for this game window
 void seticon(SDL_Window *window)
 {
     SDL_Surface *iconSurface = IMG_Load("pictures/icon.png");
@@ -54,8 +54,8 @@ void seticon(SDL_Window *window)
     SDL_FreeSurface(iconSurface);
 }
 
-//setting the basic starting textures and window
-Scene test(void)
+// setting the basic starting textures and window
+Scene initScene(void)
 {
     Scene scene;
     // initialize SDL
@@ -77,7 +77,7 @@ Scene test(void)
         fprintf(stderr, "SDL_GetDesktopDisplayMode Error : %s\n", SDL_GetError());
     }
     // set a window
-    scene.window = SDL_CreateWindow("Edge of destiny", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, dm.w, dm.h-60, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+    scene.window = SDL_CreateWindow("Edge of destiny", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, dm.w, dm.h - 60, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
     if (scene.window == NULL)
     {
         fprintf(stderr, "SDL_CreateWindow Error: %s\n", SDL_GetError());
@@ -85,7 +85,7 @@ Scene test(void)
     }
 
     // set a renderer
-    scene.renderer = SDL_CreateRenderer(scene.window, -1, SDL_RENDERER_ACCELERATED );
+    scene.renderer = SDL_CreateRenderer(scene.window, -1, SDL_RENDERER_ACCELERATED);
     if (scene.renderer == NULL)
     {
         fprintf(stderr, "SDL_CreateRenderer Error: %s\n", SDL_GetError());
@@ -102,17 +102,16 @@ Scene test(void)
         printf("Unable to create texture: %s\n", SDL_GetError());
     }
     // player png
-    scene.playerTexture = IMG_LoadTexture(scene.renderer, "pictures/Screenshot 2024-01-31 161013.png");
+    scene.playerTexture = IMG_LoadTexture(scene.renderer, "pictures/AnimationSheet_Character.png");
     // check if the image was loaded
     if (!scene.playerTexture)
     {
         printf("Unable to create texture: %s\n", SDL_GetError());
     }
-
     return scene;
 }
 
-//renderer update
+// renderer update
 void updateMap(SDL_Renderer *rend)
 {
     // set render color
@@ -124,14 +123,15 @@ void updateMap(SDL_Renderer *rend)
     SDL_RenderDrawRect(rend, &rect);
 }
 
-//updating player cube
-void updatePlayer(SDL_Renderer *rend, SDL_Texture *playerTexture)
+// updating player cube
+void updatePlayer(SDL_Renderer *rend, SDL_Texture *playerTexture, int framenum)
 {
     SDL_Rect playerDest = cube;
-    SDL_RenderCopy(rend, playerTexture, NULL, &playerDest);
+    SDL_Rect playerSrc = {framenum * 32, 96, 32, 32};
+    SDL_RenderCopy(rend, playerTexture, &playerSrc, &playerDest);
 }
 
-//clearing every oopen SDL_structure
+// clearing every oopen SDL_structure
 void clear(Scene scene)
 {
     // clean up resources
@@ -149,13 +149,14 @@ void clear(Scene scene)
 void renderBackground(SDL_Renderer *rend, SDL_Texture *bgTexture)
 {
     // SDL_RenderClear(rend);
-    if (SDL_RenderCopy(rend, bgTexture, NULL, NULL)!=0) {
+    if (SDL_RenderCopy(rend, bgTexture, NULL, NULL) != 0)
+    {
         printf("Render bacjgorund error: %s\n", SDL_GetError());
     };
 }
 
 // change background
-void mapchange(char *picname, Scene* scene)
+void loadMapBackground(char *picname, Scene *scene)
 {
     if (scene->bgTexture != NULL)
     {
@@ -170,7 +171,7 @@ void mapchange(char *picname, Scene* scene)
     }
 }
 
-//text rendering
+// text rendering
 int drawtext(SDL_Renderer *rend, SDL_Texture *texture, char *dialogue)
 {
     TTF_Font *font = TTF_OpenFont("fonts/Pixellettersfull-BnJ5.ttf", 32);
@@ -208,7 +209,7 @@ int drawtext(SDL_Renderer *rend, SDL_Texture *texture, char *dialogue)
     return 0;
 }
 
-//render text background
+// render text background
 void drawBlackRect(SDL_Renderer *rend)
 {
     SDL_Rect textforeground;
@@ -221,7 +222,7 @@ void drawBlackRect(SDL_Renderer *rend)
     SDL_RenderFillRect(rend, &textforeground);  // draw the rectangle
 }
 
-//start soundtrack
+// start soundtrack
 void playSoundtrack()
 {
     // Initialize SDL_mixer
@@ -318,3 +319,12 @@ void animationset(int frame,enum Direction direction){
         break;
     }
 }*/
+void animation(SDL_Renderer *rend, int frame, SDL_Texture *plyertexturee)
+{
+    switch (frame)
+    {
+    case 0:
+
+        break;
+    }
+}

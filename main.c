@@ -4,17 +4,19 @@
 #include "scenegen.h"
 #include "entity.h"
 
-    
 int main()
 {
+    int stepSize = 2;
     KeyChain keyChain;
     keyChain.actOneKey = false;
     keyChain.bedRoomKey = false;
-    
+    int framenum = 0;
+    int cycle = 0;
     enum Direction direction;
     enum Status status = MOVING;
     Uint32 dialogueEndTime = 0; // timer for dialogue
     Uint32 espamtimer = 0;
+
     int scenenum = 1;
     // mpa variables
     char filename[100] = "";
@@ -29,10 +31,10 @@ int main()
     Range collision;
     // window and map creation
 
-    Scene scene = test();
+    Scene scene = initScene();
 
     drawcube();
-    map("maps/starting map.map");
+    loadMapDefinition("maps/starting map.map");
     seticon(scene.window);
     // text
     bool textfore = false;
@@ -104,10 +106,10 @@ int main()
             {
                 if (status == MOVING && (SDL_GetTicks() > dialogueEndTime))
                 {
-                    if (processNPCSquare(collision.code, scenenum,&keyChain) == 6)
+                    if (processNPCSquare(collision.code, scenenum, &keyChain) == 6)
                     {
                         printf("End of dialogue reached.\n");
-                        //keyChain.actOneKey = true;
+                        // keyChain.actOneKey = true;
                         status = MOVING;
                         // scenenum++;
                         espamtimer = SDL_GetTicks() + 2000; // set the end time to 2 seconds from now
@@ -121,10 +123,10 @@ int main()
 
                 if (epressed == true && SDL_GetTicks() > espamtimer)
                 {
-                    if (processNPCSquare(collision.code, scenenum,&keyChain) == 6)
+                    if (processNPCSquare(collision.code, scenenum, &keyChain) == 6)
                     {
                         printf("End of dialogue reached.\n");
-                        //keyChain.actOneKey = true;
+                        // keyChain.actOneKey = true;
                         status = MOVING;
                         // scenenum++;
                         espamtimer = SDL_GetTicks() + 2000; // set the end time to 2 seconds from now
@@ -140,10 +142,11 @@ int main()
         {
             bool temp = false;
             status = HOLD;
-            temp = processMapSquare(collision.code, filename, picname,&keyChain);
-            if (temp == true){
-            mapchange(picname, &scene);
-            map(filename);
+            temp = processMapSquare(collision.code, filename, picname, &keyChain);
+            if (temp == true)
+            {
+                loadMapBackground(picname, &scene);
+                loadMapDefinition(filename);
             }
             status = MOVING;
         }
@@ -151,7 +154,7 @@ int main()
         if (status == MOVING)
         {
             SDL_Rect target = {cube.x, cube.y, 50, 50};
-            moving(direction, &target);
+            moving(direction, &target, stepSize);
 
             // collision sollution
             // collision = detect(direction, &suffix,target);
@@ -160,15 +163,26 @@ int main()
             // printf("collll: %d\n",collision);
             if (collision.info == 1)
             {
-                moving(direction, &cube);
+                moving(direction, &cube, stepSize);
             }
+        }
+
+        if (status == MOVING && direction != NONE)
+        {
+            cycle++;
+            if (cycle % 10 == 0)
+            {
+                framenum++;
+            }
+            framenum = framenum % 8;
         }
 
         // screen update
 
         updateMap(scene.renderer);
         renderBackground(scene.renderer, scene.bgTexture);
-        updatePlayer(scene.renderer, scene.playerTexture);
+
+        updatePlayer(scene.renderer, scene.playerTexture, framenum);
 
         if (status == DIALOGUE)
         {
@@ -185,23 +199,23 @@ int main()
 }
 // collision detection function
 
-void moving(enum Direction direction, SDL_Rect *rect)
+void moving(enum Direction direction, SDL_Rect *rect, int stepSize)
 {
     if (direction & NORTH)
     {
-        rect->y -= 4;
+        rect->y -= stepSize;
     }
     if (direction & SOUTH)
     {
-        rect->y += 4;
+        rect->y += stepSize;
     }
     if (direction & WEST)
     {
-        rect->x -= 4;
+        rect->x -= stepSize;
     }
     if (direction & EAST)
     {
-        rect->x += 4;
+        rect->x += stepSize;
     }
 }
 
