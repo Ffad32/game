@@ -8,9 +8,9 @@
     
 int main()
 {
-
-    //keyChain.actOneKey = false;
-    //keyChain.bedRoomKey = false;
+    KeyChain keyChain;
+    keyChain.actOneKey = false;
+    keyChain.bedRoomKey = false;
     
     enum Direction direction;
     enum Status status = MOVING;
@@ -141,8 +141,8 @@ int main()
         {
             bool temp = false;
             status = HOLD;
-            processMapSquare(collision.code, filename, picname,&keyChain);
-            if (temp = true){
+            temp = processMapSquare(collision.code, filename, picname,&keyChain);
+            if (temp == true){
             mapchange(picname, &scene);
             map(filename);
             }

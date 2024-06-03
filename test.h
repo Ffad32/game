@@ -27,7 +27,6 @@ typedef struct Keychain
     bool actOneKey;
     bool bedRoomKey;
 }KeyChain;
-    KeyChain keyChain;
 
 // global variables for player
 SDL_Rect cube;
