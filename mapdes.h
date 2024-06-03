@@ -10,7 +10,7 @@ bool processMapSquare(int suffix, char *filename, char *picname, KeyChain *key)
         if (key->actOneKey == true)
         {
             strcpy(filename, "maps/tavern_at_night.map");
-            strcpy(picname, "pictures/mapPic/taverNearNight.jpg");
+            strcpy(picname, "pictures/mapPic/taver near night.jpg");
             cube.x = ((config.SCREEN_WIDTH / 2) - (cube.w / 2));
             cube.y = ((config.SCREEN_HEIGHT / 2) - (cube.h / 2));
             return true;
