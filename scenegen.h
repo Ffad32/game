@@ -8,9 +8,10 @@ int processNPCSquare(int suffix, int scenemun)
     switch (suffix)
     {
     case 1:
-        barmanSceneChoice(scenemun);
+        dialogue("charactersdialogues/stranger/stranger.txt");
         break;
     case 2:
+        barmanSceneChoice(scenemun);
         break;
     case 3:
         break;
@@ -23,10 +24,10 @@ int barmanSceneChoice(int scenenum){
     switch (scenenum)
     {
     case 1 :
-        dialogue("charactersdialogues/barman/barmanScene1.txt");
+        dialogue("charactersdialogues/barman/barmanACT1.txt");
         break;
     case 2:
-        dialogue("");
+        dialogue("charactersdialogues/barman/barmanACT2.txt");
         break;
     default:
         break;
