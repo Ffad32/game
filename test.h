@@ -95,7 +95,7 @@ Scene initScene(void)
     SDL_RenderSetLogicalSize(scene.renderer, config.SCREEN_WIDTH, config.SCREEN_HEIGHT);
 
     // map jpg
-    scene.bgTexture = IMG_LoadTexture(scene.renderer, "pictures/mapPic/start.jpg"); // check if the image was loaded
+    scene.bgTexture = IMG_LoadTexture(scene.renderer, "pictures/mapPic/startingLoc.jpg"); // check if the image was loaded
     // check if the texture was created
     if (!scene.bgTexture)
     {
