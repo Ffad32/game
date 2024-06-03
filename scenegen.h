@@ -26,7 +26,7 @@ int barmanSceneChoice(int scenenum){
         dialogue("charactersdialogues/barman/barmanScene1.txt");
         break;
     case 2:
-
+        dialogue("");
         break;
     default:
         break;
