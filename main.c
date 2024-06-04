@@ -51,7 +51,7 @@ int main()
         while (SDL_PollEvent(&e))
         {
             // quit event
-            if (e.type == SDL_QUIT || e.type == SDL_MOUSEBUTTONDOWN)
+            if (e.type == SDL_QUIT/* || e.type == SDL_MOUSEBUTTONDOWN*/)
             {
                 quit = true;
             }
