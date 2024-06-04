@@ -8,21 +8,21 @@ int main()
 {
     int stepSize = 2;
     KeyChain keyChain;
-    //key initialization
+    // key initialization
     keyChain.actOneKey = false;
     keyChain.bedRoomKey = false;
     keyChain.tavernthought = false;
     keyChain.shopthought = false;
-    
+    // animation ints
     int framenum = 0;
     int cycle = 0;
+    // stats
     enum Direction direction;
     enum Status status = MOVING;
+    // timers
     Uint32 dialogueEndTime = 0; // timer for dialogue
     Uint32 espamtimer = 0;
-
-    int scenenum = 1;
-    // mpa variables
+    // map variables
     char filename[100] = "";
     char picname[100] = "";
     // movement flags for the player
@@ -34,7 +34,6 @@ int main()
     // collision ints
     Range collision;
     // window and map creation
-
     Scene scene = initScene();
 
     drawcube();
@@ -110,7 +109,7 @@ int main()
             {
                 if (status == MOVING && (SDL_GetTicks() > dialogueEndTime))
                 {
-                    if (processNPCSquare(collision.code,&keyChain) == 6)
+                    if (processNPCSquare(collision.code, &keyChain) == 6)
                     {
                         printf("End of dialogue reached.\n");
                         // keyChain.actOneKey = true;
@@ -127,7 +126,7 @@ int main()
 
                 if (epressed == true && SDL_GetTicks() > espamtimer)
                 {
-                    if (processNPCSquare(collision.code,&keyChain) == 6)
+                    if (processNPCSquare(collision.code, &keyChain) == 6)
                     {
                         printf("End of dialogue reached.\n");
                         // keyChain.actOneKey = true;
