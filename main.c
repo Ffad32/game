@@ -13,6 +13,7 @@ int main()
     keyChain.bedRoomKey = false;
     keyChain.tavernthought = false;
     keyChain.shopthought = false;
+    
     int framenum = 0;
     int cycle = 0;
     enum Direction direction;
@@ -109,7 +110,7 @@ int main()
             {
                 if (status == MOVING && (SDL_GetTicks() > dialogueEndTime))
                 {
-                    if (processNPCSquare(collision.code, scenenum, &keyChain) == 6)
+                    if (processNPCSquare(collision.code,&keyChain) == 6)
                     {
                         printf("End of dialogue reached.\n");
                         // keyChain.actOneKey = true;
@@ -126,7 +127,7 @@ int main()
 
                 if (epressed == true && SDL_GetTicks() > espamtimer)
                 {
-                    if (processNPCSquare(collision.code, scenenum, &keyChain) == 6)
+                    if (processNPCSquare(collision.code,&keyChain) == 6)
                     {
                         printf("End of dialogue reached.\n");
                         // keyChain.actOneKey = true;

@@ -54,11 +54,13 @@ bool processMapSquare(int suffix, char *filename, char *picname, KeyChain *key)
         }
         break;
     case 6:
+        if(key->barmanlastdialogue == true){
         strcpy(filename, "maps/tavern_at_night.map");
         strcpy(picname, "pictures/mapPic/taver near.jpg");
         cube.x = ((config.SCREEN_WIDTH / 2) - (cube.w / 2));
         cube.y = ((config.SCREEN_HEIGHT / 2) - (cube.h / 2));
         return true;
+        }
         break;
     case 7:
         strcpy(filename, "maps/tos.map");
