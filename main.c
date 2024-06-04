@@ -1,8 +1,9 @@
-#include "test.h"
-#include "mapmaker.h"
-#include "mapdes.h"
-#include "scenegen.h"
+#include "scene.h"
+#include "map.h"
+#include "dialogue.h"
 #include "entity.h"
+#include "controller.h"
+#include <stdbool.h>
 
 int main()
 {
@@ -17,19 +18,11 @@ int main()
     int framenum = 0;
     int cycle = 0;
     // stats
-    enum Direction direction;
+    enum Direction direction = NONE;
     enum Status status = MOVING;
     // timers
     Uint32 dialogueEndTime = 0; // timer for dialogue
-    Uint32 espamtimer = 0;
-    // map variables
-    char filename[100] = "";
-    char picname[100] = "";
-    // movement flags for the player
-    bool moving_up = false;
-    bool moving_down = false;
-    bool moving_left = false;
-    bool moving_right = false;
+    Uint32 espamtimer = 0;      // timer for e spam
     bool epressed = false;
     // collision ints
     Range collision;
@@ -50,58 +43,8 @@ int main()
         // event handling
         while (SDL_PollEvent(&e))
         {
-            // quit event
-            if (e.type == SDL_QUIT /* || e.type == SDL_MOUSEBUTTONDOWN*/)
-            {
-                quit = true;
-            }
-            // keyboard events
-            if (e.type == SDL_KEYDOWN)
-            {
-                switch (e.key.keysym.scancode)
-                {
-                case SDL_SCANCODE_W:
-                    moving_up = true;
-                    break;
-                case SDL_SCANCODE_S:
-                    moving_down = true;
-                    break;
-                case SDL_SCANCODE_A:
-                    moving_left = true;
-                    break;
-                case SDL_SCANCODE_D:
-                    moving_right = true;
-                    break;
-                case SDL_SCANCODE_E:
-                    epressed = true;
-                    break;
-                }
-            }
-            if (e.type == SDL_KEYUP)
-            {
-                switch (e.key.keysym.scancode)
-                {
-                case SDL_SCANCODE_W:
-                    moving_up = false;
-                    break;
-                case SDL_SCANCODE_S:
-                    moving_down = false;
-                    break;
-                case SDL_SCANCODE_A:
-                    moving_left = false;
-                    break;
-                case SDL_SCANCODE_D:
-                    moving_right = false;
-                    break;
-                case SDL_SCANCODE_E:
-                    epressed = false;
-                    break;
-                }
-            }
+            handleEvent(&e,&direction,&epressed, &quit);
         }
-
-        direction = keyToDirection(moving_right, moving_left, moving_up, moving_down);
-        // printf("Direction: %d\n", direction);
 
         if (SDL_GetTicks() > espamtimer)
         {
@@ -112,9 +55,7 @@ int main()
                     if (processNPCSquare(collision.code, &keyChain) == 6)
                     {
                         printf("End of dialogue reached.\n");
-                        // keyChain.actOneKey = true;
                         status = MOVING;
-                        // scenenum++;
                         espamtimer = SDL_GetTicks() + 2000; // set the end time to 2 seconds from now
                     }
                     else
@@ -129,9 +70,7 @@ int main()
                     if (processNPCSquare(collision.code, &keyChain) == 6)
                     {
                         printf("End of dialogue reached.\n");
-                        // keyChain.actOneKey = true;
                         status = MOVING;
-                        // scenenum++;
                         espamtimer = SDL_GetTicks() + 2000; // set the end time to 2 seconds from now
                     }
                     else
@@ -145,11 +84,11 @@ int main()
         {
             bool temp = false;
             status = HOLD;
-            temp = processMapSquare(collision.code, filename, picname, &keyChain);
+            temp = processMapSquare(collision.code, &keyChain);
             if (temp == true)
             {
-                loadMapBackground(picname, &scene);
-                loadMapDefinition(filename);
+                loadMapBackground(collision.code, &scene);
+                //loadMapDefinition(filename);
             }
             status = MOVING;
         }
@@ -158,10 +97,6 @@ int main()
         {
             SDL_Rect target = {cube.x, cube.y, 50, 50};
             moving(direction, &target, stepSize);
-
-            // collision sollution
-            // collision = detect(direction, &suffix,target);
-
             canMove(target, direction, &collision);
             // printf("collll: %d\n",collision);
             if (collision.info == 1)
@@ -199,124 +134,4 @@ int main()
     // clean up
     clear(scene);
     return 0;
-}
-// collision detection function
-
-void moving(enum Direction direction, SDL_Rect *rect, int stepSize)
-{
-    if (direction & NORTH)
-    {
-        rect->y -= stepSize;
-    }
-    if (direction & SOUTH)
-    {
-        rect->y += stepSize;
-    }
-    if (direction & WEST)
-    {
-        rect->x -= stepSize;
-    }
-    if (direction & EAST)
-    {
-        rect->x += stepSize;
-    }
-}
-
-int keyToDirection(int moving_right, int moving_left, int moving_up, int moving_down)
-{
-    if (moving_right && moving_up)
-    {
-        return NORTH_EAST;
-    }
-    if (moving_right && moving_down)
-    {
-        return SOUTH_EAST;
-    }
-    if (moving_left && moving_up)
-    {
-        return NORTH_WEST;
-    }
-    if (moving_left && moving_down)
-    {
-        return SOUTH_WEST;
-    }
-    if (moving_right)
-    {
-        return EAST;
-    }
-    if (moving_left)
-    {
-        return WEST;
-    }
-    if (moving_up)
-    {
-        return NORTH;
-    }
-    if (moving_down)
-    {
-        return SOUTH;
-    }
-    return NONE;
-}
-
-bool intersect(SDL_Rect rect1, SDL_Rect rect2)
-{
-    bool inter = SDL_HasIntersection(&rect1, &rect2) == SDL_TRUE;
-    return inter;
-}
-
-void canMove(SDL_Rect rect, enum Direction direction, Range *lastCode)
-{
-    int i = rect.x / 51.2;
-    int j = rect.y / 51.2;
-
-    // printf("ranges: %d, %d\n",i,j);
-    lastCode->info = 1;
-
-    if (direction & NORTH)
-    {
-        testRange(rect, ranges[i][j], lastCode);
-        testRange(rect, ranges[i - 1][j], lastCode);
-        testRange(rect, ranges[i + 1][j], lastCode);
-    }
-    if (direction & SOUTH)
-    {
-        testRange(rect, ranges[i][j + 1], lastCode);
-        testRange(rect, ranges[i - 1][j + 1], lastCode);
-        testRange(rect, ranges[i + 1][j + 1], lastCode);
-    }
-    if (direction & WEST)
-    {
-        testRange(rect, ranges[i][j], lastCode);
-        testRange(rect, ranges[i][j - 1], lastCode);
-        testRange(rect, ranges[i][j + 1], lastCode);
-    }
-    if (direction & EAST)
-    {
-        testRange(rect, ranges[i + 1][j], lastCode);
-        testRange(rect, ranges[i + 1][j - 1], lastCode);
-        testRange(rect, ranges[i + 1][j + 1], lastCode);
-    }
-}
-
-SDL_Rect rangeToRect(Range range)
-{
-    SDL_Rect target;
-    target.h = 50;
-    target.w = 50;
-    target.x = range.x_start;
-    target.y = range.y_start;
-    return target;
-}
-
-void testRange(SDL_Rect rect, Range range, Range *lastCode)
-{
-    if (range.info != 1)
-    {
-        if (intersect(rect, rangeToRect(range)) == true)
-        {
-            if (lastCode->info == 1 || (range.info > lastCode->info))
-                *lastCode = range;
-        }
-    }
 }

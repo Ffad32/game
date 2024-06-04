@@ -1,8 +1,6 @@
 #define SDL_MAIN_HANDLED
-#ifdef TEST_H
-#error test.h is already included
-#endif
-#define TEST_H
+#ifndef _SCENE_H_
+#define _SCENE_H_
 #include <SDL.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -20,14 +18,7 @@ typedef struct Scene
     SDL_Texture *texture;
     SDL_Texture *playerTexture;
 } Scene;
-typedef struct Keychain
-{
-    bool actOneKey;
-    bool tavernthought;
-    bool bedRoomKey;
-    bool shopthought;
-    bool barmanlastdialogue;
-} KeyChain;
+
 // global variables for player
 SDL_Rect cube;
 
@@ -156,22 +147,6 @@ void renderBackground(SDL_Renderer *rend, SDL_Texture *bgTexture)
     };
 }
 
-// change background
-void loadMapBackground(char *picname, Scene *scene)
-{
-    if (scene->bgTexture != NULL)
-    {
-        SDL_DestroyTexture(scene->bgTexture);
-        scene->bgTexture = NULL;
-    }
-    scene->bgTexture = IMG_LoadTexture(scene->renderer, picname);
-    // check if the texture was created
-    if (!scene->bgTexture)
-    {
-        printf("Unable to create texture: %s\n", SDL_GetError());
-    }
-}
-
 // text rendering
 int drawtext(SDL_Renderer *rend, SDL_Texture *texture, char *dialogue)
 {
@@ -248,3 +223,4 @@ void playSoundtrack()
         return;
     }
 }
+#endif // _SCENE_H_

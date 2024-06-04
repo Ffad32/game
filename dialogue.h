@@ -1,6 +1,53 @@
+#ifndef _DIALOGUE_H
+#define _DIALOGUE_H
 #include <string.h>
 #include <stdio.h>
 #define max 1000
+
+FILE *dialogueFile = NULL;
+char dialoguet[max] = "";
+
+typedef struct Keychain
+{
+    bool actOneKey;
+    bool tavernthought;
+    bool bedRoomKey;
+    bool shopthought;
+    bool barmanlastdialogue;
+} KeyChain;
+
+
+int dialogue(char *NPCnameFile)
+{
+
+    if (dialogueFile == NULL)
+    {
+        dialogueFile = fopen(NPCnameFile, "r");
+        if (dialogueFile == NULL)
+        {
+            fprintf(stderr, "Error opening file: %s\n", NPCnameFile);
+            return 1;
+        }
+    }
+
+    if (fgets(dialoguet, max, dialogueFile) == NULL)
+    {
+        fprintf(stderr, "End of dialogue reached.\n");
+        fclose(dialogueFile);
+        dialogueFile = NULL;
+        return 6;
+    }
+    printf("%s", dialoguet);
+}
+
+void endDialogue()
+{
+    if (dialogueFile != NULL)
+    {
+        fclose(dialogueFile);
+        dialogueFile = NULL;
+    }
+}
 
 int processNPCSquare(int suffix, KeyChain *key)
 {
@@ -47,36 +94,4 @@ int processNPCSquare(int suffix, KeyChain *key)
     }
 }
 
-FILE *dialogueFile = NULL;
-char dialoguet[max] = "";
-int dialogue(char *NPCnameFile)
-{
-
-    if (dialogueFile == NULL)
-    {
-        dialogueFile = fopen(NPCnameFile, "r");
-        if (dialogueFile == NULL)
-        {
-            fprintf(stderr, "Error opening file: %s\n", NPCnameFile);
-            return 1;
-        }
-    }
-
-    if (fgets(dialoguet, max, dialogueFile) == NULL)
-    {
-        fprintf(stderr, "End of dialogue reached.\n");
-        fclose(dialogueFile);
-        dialogueFile = NULL;
-        return 6;
-    }
-    printf("%s", dialoguet);
-}
-
-void endDialogue()
-{
-    if (dialogueFile != NULL)
-    {
-        fclose(dialogueFile);
-        dialogueFile = NULL;
-    }
-}
+#endif //_DIALOGUE_H
