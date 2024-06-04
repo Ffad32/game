@@ -146,6 +146,7 @@ void clear(Scene scene)
     Mix_CloseAudio();
     TTF_Quit();
     SDL_Quit();
+    printf("Quit succesfull\nGame over\n");
 }
 
 // rendering background texture

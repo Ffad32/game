@@ -92,6 +92,6 @@ int loadMapDefinition(const char *filename)
         count++;
     }
     fclose(f);
-    printf("map layout updated sucesfully");
+    printf("map layout updated sucesfully\n");
     return 0;
 }
