@@ -112,7 +112,7 @@ Scene initScene(void)
 }
 
 // renderer update
-void updateMap(SDL_Renderer *rend)
+void updaterend(SDL_Renderer *rend)
 {
     // set render color
     SDL_SetRenderDrawColor(rend, 0, 0, 0, 0);
@@ -152,7 +152,7 @@ void renderBackground(SDL_Renderer *rend, SDL_Texture *bgTexture)
     // SDL_RenderClear(rend);
     if (SDL_RenderCopy(rend, bgTexture, NULL, NULL) != 0)
     {
-        printf("Render bacjgorund error: %s\n", SDL_GetError());
+        printf("Render backgorund error: %s\n", SDL_GetError());
     };
 }
 

@@ -51,7 +51,7 @@ int main()
         while (SDL_PollEvent(&e))
         {
             // quit event
-            if (e.type == SDL_QUIT/* || e.type == SDL_MOUSEBUTTONDOWN*/)
+            if (e.type == SDL_QUIT /* || e.type == SDL_MOUSEBUTTONDOWN*/)
             {
                 quit = true;
             }
@@ -182,7 +182,7 @@ int main()
 
         // screen update
 
-        updateMap(scene.renderer);
+        updaterend(scene.renderer);
         renderBackground(scene.renderer, scene.bgTexture);
 
         updatePlayer(scene.renderer, scene.playerTexture, framenum);
@@ -315,7 +315,6 @@ void testRange(SDL_Rect rect, Range range, Range *lastCode)
     {
         if (intersect(rect, rangeToRect(range)) == true)
         {
-            // printf("tttttt");
             if (lastCode->info == 1 || (range.info > lastCode->info))
                 *lastCode = range;
         }
