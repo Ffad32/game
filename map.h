@@ -160,7 +160,7 @@ void loadMap(int suffix, Scene *scene)
         cube.y = ((config.SCREEN_HEIGHT / 2) - (cube.h / 2));
         break;
     case 6:
-        strcpy(filename, "maps/tavern_at_night.map");
+        strcpy(filename, "maps/tavern_at_night copy.map");
         strcpy(picname, "pictures/mapPic/taver near.jpg");
         cube.x = ((config.SCREEN_WIDTH / 2) - (cube.w / 2));
         cube.y = ((config.SCREEN_HEIGHT / 2) - (cube.h / 2));
