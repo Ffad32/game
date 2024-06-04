@@ -1,8 +1,16 @@
-Barman: I wouldn’t expect a living soul here that late at night, you must be new into town, right? 
+Barman: I wouldnt expect a living soul here that late at night
+Barman: You must be new into town, right? 
 Barman: Tell me, what do you want love? 
 Seraphine: Shot of whiskey would be nice.
 Seraphine: So tell me, what happens at night?
-Barman: You know, rumors..they say that vampires like to wander around here. It’s scaring off the customers, the sales have been low lately. 
+Barman: You know, rumors..
+Barman: They say that vampires like to wander around here. 
+Barman: Its scaring off the customers, the sales have been low lately. 
 Seraphine: Money is tight? I could pay you for some roof over my head. 
-Barman: I doubt that you’ll have enough. But if you really mean it, you can open a shop in my name. There’s a market in the center of our kingdom. You can even sell something of your own. You know, look at me, I am an old man, I can’t even stand for 1 minute, let alone 8 hours a day. 
-Baraman: Now go to sleep love, you look tired. The room is upstairs.
+Barman: I doubt that youll have enough.
+Barman: But if you really mean it, you can open a shop in my name.
+Barman: Theres a market in the center of our kingdom.
+Barman: You can even sell something of your own if you want.
+Barman: You know, look at me, I am an old man.
+Barman: I cant even stand for 1 minute, let alone 8 hours a day. 
+Barman: Now go to sleep love, you look tired. The room is upstairs.

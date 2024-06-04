@@ -2,11 +2,12 @@ Stranger: Hello, young lady
 Seraphine: Where am I?
 Stranger: You are in a Startorswill, home of your mighty lord.
 Seraphine: Mighty lord? Who rules this region?
-Stranger: Our almighty queen, name
+Stranger: Our almighty queen, Laura.
 Seraphine: Thank you kind man, Ill be on my way…
 Stranger: Wait! 
-Seraphine: …
-Stranger: Just beware of the night, there are rumors forming about the dark creatures
+Seraphine: ...
+Stranger: Just beware of the night.
+Stranger: There are rumors forming about the dark creatures
 Stranger: There are living in the shadows, dying to taste your blood. 
 Seraphine: Dark creatures? 
 Stranger: Vampires.
