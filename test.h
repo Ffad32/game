@@ -3,7 +3,6 @@
 #error test.h is already included
 #endif
 #define TEST_H
-
 #include <SDL.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -11,7 +10,6 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
-// #include "entity.h"
 
 // set the starting scene required textures and modifications
 typedef struct Scene
@@ -30,7 +28,6 @@ typedef struct Keychain
     bool shopthought;
     bool barmanlastdialogue;
 } KeyChain;
-
 // global variables for player
 SDL_Rect cube;
 
