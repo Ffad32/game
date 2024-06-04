@@ -22,7 +22,7 @@ typedef struct Scene
 // global variables for player
 SDL_Rect cube;
 
-void drawcube(void)
+void initPlayer(void)
 {
     cube.w = 60;                                          // Width of the cube
     cube.h = 60;                                          // Height of the cube
@@ -84,14 +84,7 @@ Scene initScene(void)
     }
     // logical size of the window
     SDL_RenderSetLogicalSize(scene.renderer, config.SCREEN_WIDTH, config.SCREEN_HEIGHT);
-
-    // map jpg
-    scene.bgTexture = IMG_LoadTexture(scene.renderer, "pictures/mapPic/startingLoc.jpg"); // check if the image was loaded
-    // check if the texture was created
-    if (!scene.bgTexture)
-    {
-        printf("Unable to create texture: %s\n", SDL_GetError());
-    }
+    
     // player png
     scene.playerTexture = IMG_LoadTexture(scene.renderer, "pictures/AnimationSheet_Character.png");
     // check if the image was loaded

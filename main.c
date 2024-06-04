@@ -29,8 +29,8 @@ int main()
     // window and map creation
     Scene scene = initScene();
 
-    drawcube();
-    loadMapDefinition("maps/starting map.map");
+    initPlayer();
+    loadMap(-1, &scene);
     seticon(scene.window);
     // text
     bool textfore = false;
@@ -87,7 +87,7 @@ int main()
             temp = processMapSquare(collision.code, &keyChain);
             if (temp == true)
             {
-                loadMapBackground(collision.code, &scene);
+                loadMap(collision.code, &scene);
                 //loadMapDefinition(filename);
             }
             status = MOVING;
