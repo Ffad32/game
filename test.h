@@ -25,7 +25,9 @@ typedef struct Scene
 typedef struct Keychain
 {
     bool actOneKey;
+    bool tavernthought;
     bool bedRoomKey;
+    bool shopthought;
 } KeyChain;
 
 // global variables for player

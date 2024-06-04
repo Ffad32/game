@@ -14,7 +14,9 @@ int processNPCSquare(int suffix, int scenemun, KeyChain *key)
         }
         break;
     case 2:
-        barmanSceneChoice(scenemun, key);
+        if(barmanSceneChoice(scenemun, key) == 6){
+            return 6;
+        };
         break;
     case 3:
         break;
@@ -28,11 +30,16 @@ int barmanSceneChoice(int scenenum, KeyChain *key)
     switch (scenenum)
     {
     case 1:
-        dialogue("charactersdialogues/barman/barmanACT1.txt");
-        // key->bedRoomKey= true;
+        if(dialogue("charactersdialogues/barman/barmanACT1.txt")==6){
+            key->tavernthought= true;
+            return 6;
+        }
         break;
     case 2:
-        dialogue("charactersdialogues/barman/barmanACT2.txt");
+        if(dialogue("charactersdialogues/barman/barmanACT2.txt")==6){
+            key->shopthought= true;
+            return 6;
+        }
         break;
     default:
         break;

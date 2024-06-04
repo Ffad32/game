@@ -8,8 +8,11 @@ int main()
 {
     int stepSize = 2;
     KeyChain keyChain;
+    //key initialization
     keyChain.actOneKey = false;
     keyChain.bedRoomKey = false;
+    keyChain.tavernthought = false;
+    keyChain.shopthought = false;
     int framenum = 0;
     int cycle = 0;
     enum Direction direction;

@@ -17,29 +17,52 @@ bool processMapSquare(int suffix, char *filename, char *picname, KeyChain *key)
         }
         break;
     case 2:
-        strcpy(filename, "maps/taverna.map");
-        strcpy(picname, "pictures/mapPic/tavern.jpg");
-        cube.x = ((config.SCREEN_WIDTH / 2) - (cube.w / 2));
-        cube.y = ((config.SCREEN_HEIGHT / 2) - (cube.h / 2));
-        printf("lol");
-        return true;
+        if (key->tavernthought == true)
+        {
+            strcpy(filename, "maps/taverna.map");
+            strcpy(picname, "pictures/mapPic/tavern.jpg");
+            cube.x = ((config.SCREEN_WIDTH / 2) - (cube.w / 2));
+            cube.y = ((config.SCREEN_HEIGHT / 2) - (cube.h / 2));
+            return true;
+        }
         break;
     case 3:
-        strcpy(filename, "maps/bedroommap.map");
-        strcpy(picname, "pictures/mapPic/bedroom.jpg");
+        if (key->bedRoomKey == true)
+        {
+            strcpy(filename, "maps/bedroommap.map");
+            strcpy(picname, "pictures/mapPic/bedroomNightt.jpg");
+            cube.x = ((config.SCREEN_WIDTH / 2) - (cube.w / 2) + 100);
+            cube.y = ((config.SCREEN_HEIGHT / 2) - (cube.h / 2));
+            return true;
+        }
+        break;
+    case 4:
+        strcpy(filename, "maps/bedroommap copy.map");
+        strcpy(picname, "pictures/mapPic/bedroomDayy.jpg");
         cube.x = ((config.SCREEN_WIDTH / 2) - (cube.w / 2) + 100);
         cube.y = ((config.SCREEN_HEIGHT / 2) - (cube.h / 2));
         return true;
         break;
-    case 4:
-        strcpy(filename, "maps/tos.map");
-        strcpy(picname, "pictures/start.jpg");
+    case 5:
+        if (key->shopthought == true)
+        {
+            strcpy(filename, "maps/taverna copy.map");
+            strcpy(picname, "pictures/mapPic/tavern.jpg");
+            cube.x = ((config.SCREEN_WIDTH / 2) - (cube.w / 2));
+            cube.y = ((config.SCREEN_HEIGHT / 2) - (cube.h / 2));
+            return true;
+        }
+        break;
+    case 6:
+        strcpy(filename, "maps/tavern_at_night.map");
+        strcpy(picname, "pictures/mapPic/taver near.jpg");
         cube.x = ((config.SCREEN_WIDTH / 2) - (cube.w / 2));
         cube.y = ((config.SCREEN_HEIGHT / 2) - (cube.h / 2));
+        return true;
         break;
-    case 5:
+    case 7:
         strcpy(filename, "maps/tos.map");
-        strcpy(picname, "pictures/start.jpg");
+        strcpy(picname, "pictures/mapPic/tavern.jpg");
         cube.x = ((config.SCREEN_WIDTH / 2) - (cube.w / 2));
         cube.y = ((config.SCREEN_HEIGHT / 2) - (cube.h / 2));
         break;
