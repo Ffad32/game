@@ -30,13 +30,4 @@ struct Entity {
     enum Direction direction;
     enum Direction nextStep;
 };
-
-void entity_move(struct Entity *entity, int dx, int dy) {
-    entity->x += dx;
-    entity->y += dy;
-}
-/*entity_render(struct Entity *entity, SDL_Renderer *renderer) {
-    // render entity
-}*/
-
 #endif //ENTITY_H
