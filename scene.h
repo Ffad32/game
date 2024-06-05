@@ -92,6 +92,7 @@ Scene initScene(void)
     {
         printf("Unable to create texture: %s\n", SDL_GetError());
     }
+    scene.bgTexture = NULL;
     return scene;
 }
 

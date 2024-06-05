@@ -27,6 +27,7 @@ int main()
     // collision ints
     Range collision;
     // window and map creation
+    
     Scene scene = initScene();
 
     initPlayer();
