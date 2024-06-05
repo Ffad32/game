@@ -49,6 +49,11 @@ void seticon(SDL_Window *window)
 Scene initScene(void)
 {
     Scene scene;
+    scene.bgTexture = NULL;
+    scene.window = NULL;
+    scene.renderer = NULL;
+    scene.texture = NULL;
+    scene.playerTexture = NULL;
     // initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
     {
@@ -92,7 +97,7 @@ Scene initScene(void)
     {
         printf("Unable to create texture: %s\n", SDL_GetError());
     }
-    scene.bgTexture = NULL;
+    
     return scene;
 }
 
