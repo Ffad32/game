@@ -179,7 +179,7 @@ void loadMap(int suffix, Scene *scene)
         return;
     }
 
-    if (scene->bgTexture != NULL)
+    if (scene->bgTexture == NULL)
     {
         SDL_DestroyTexture(scene->bgTexture);
         scene->bgTexture = NULL;
